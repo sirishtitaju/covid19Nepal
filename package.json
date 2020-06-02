@@ -4,6 +4,7 @@
   "description": "Corona Statistcs Nepal",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sirish",
@@ -12,5 +13,8 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "superagent": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
