@@ -5,14 +5,12 @@ const http = require("http");
 const url = require("url");
 
 const replaceTemplate = require("./dev-data/module");
-const replaceDistrictTemplate = require("./dev-data/districtmodule");
 
 const selCountry = fs.readFileSync("./dev-data/country.txt", "utf-8");
 const tempHtml = fs.readFileSync("./template-index.html", "utf-8");
 console.log(selCountry);
 
 const tempCard = fs.readFileSync("./template-column.html", "utf-8");
-const tempDistrictCard = fs.readFileSync("./template-districtColumn.html", "utf-8");
 // console.log(selCountry);
 
 // const api_url = `https://api.covid19api.com/dayone/country/${selCountry}`;
