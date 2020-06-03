@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Corona Statistics | Nepal</title>
+    <title>Corona Statistics | Nepal - Sirish Titaju</title>
 </head>
 
 <body id="body">
@@ -90,9 +90,9 @@
             font-size: .85rem;
         }
 
-        /* #card-body {
-            padding: 0 6rem;
-        } */
+        #card-body {
+            padding: 0;
+        }
 
         #table {
             text-align: left !important;
@@ -122,11 +122,14 @@
                     font-size: 0.8rem;
                     right: 5%;
                 }
+            body,
+            html {
+                padding: 0 !important;
+                font-size: 90.5%;
+            }
         }
 
         @media (max-width: 1255px) {
-
-            
 
             body,
             html {
@@ -144,9 +147,18 @@
                 font-size: 80.5%;
             }
 
+            #card .gender-row, #card .type-row {
+                display: block !important;
+                padding: 0px !important;
+            }
+
+            #card .gender-badge, #card .type-badge {
+                display: inline-block !important;
+            }
+
         }
 
-        @media (max-width: 780px) {
+        @media (max-width: 905px) {
 
             .web-title::after { 
             font-size: 0.5rem;
@@ -174,8 +186,9 @@
 
             #card-body {
                 margin-bottom: 0 !important;
-                padding-top: 5px;
-                padding-bottom: 5px;
+                padding:0;
+                /* padding-top: 5px;
+                padding-bottom: 5px; */
             }
         }
 
@@ -249,36 +262,42 @@
             <div class="col-md-6  p-0">
                 <div class="card  card-light p-0" id="card">
                     <h3 class="text-center card-header" id="byGender">By Gender 👫</h3>
-                    <p class="card-bodyquote text-center pt-3 pb-0">
-                        <span class="h5">👦 Male <span class="badge badge-danger h6">{%Male%}% </span><span
-                                class="badge badge-primary h6 ml-1">
+                    <span class="card-bodyquote text-center pt-3 pb-0">
+                        <p class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 gender-row">👦 Male <span class="badge badge-danger h6 gender-badge">{%Male%}% </span><span
+                                class="badge badge-primary h6 ml-1 gender-badge">
                                 <strong class="p-0"> {%Total_Male%}</strong>/{%Total%}</span></span>
-                        <span class="h5">👧 Female <span class="badge badge-danger h6">{%Female%}%</span><span
-                                class="badge badge-primary h6 ml-1">
+                        <span class="h5 gender-row">👧 Female <span class="badge badge-danger h6 gender-badge">{%Female%}%</span><span
+                                class="badge badge-primary h6 ml-1 gender-badge">
                                 <strong class="p-0"> {%Total_Female%}</strong>/{%Total%}</span></span>
-                        <span class="h5">Unknown <span class="badge badge-danger h6">{%Agender%}%</span><span
-                                class="badge badge-primary h6 ml-1">
+                        </p>
+                        <p class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 gender-row">Unknown <span class="badge badge-danger h6 gender-badge">{%Agender%}%</span><span
+                                class="badge badge-primary h6 ml-1 gender-badge">
                                 <strong class="p-0"> {%Total_Agender%}</strong>/{%Total%}</span></span>
-                    </p>
+                        </p>
+                    </span>
                 </div>
             </div>
             <div class="col-md-6 p-0">
                 <div class="card  card-light p-0" id="card">
                     <h3 class="text-center card-header" id="byType">By Type 🖖</h3>
-                    <p class="card-bodyquote text-center  pt-3 pb-0 ">
-                        <span class="h5">✈️ Imported <span class="badge badge-danger h6">{%Imported%}%</span><span
-                                class="badge badge-primary h6 ml-1">
+                    <span class="card-bodyquote text-center  pt-3 pb-0 ">
+                        <p class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 type-row">✈️ Imported <span class="badge badge-danger h6 type-badge">{%Imported%}%</span><span
+                                class="badge badge-primary h6 ml-1 type-badge">
                                 <strong class="p-0"> {%Imported_Total%}</strong>/{%Total%}</span></span>
 
-                        <span class="h5">🏚 Local <span class="badge badge-danger h6">{%Local%}%</span><span
-                                class="badge badge-primary h6 ml-1">
+                        <span class="h5 type-row">🏚 Local <span class="badge badge-danger h6 type-badge">{%Local%}%</span><span
+                                class="badge badge-primary h6 ml-1 type-badge">
                                 <strong class="p-0">{%Local_Total%}</strong>/{%Total%}</span></span>
-
-                        <span class="h5">Unknown <span class="badge badge-danger h6">{%Unknown%}%</span><span
-                                class="badge badge-primary h6 ml-1">
-                                ( <strong class="p-0">{%Unknown_Total%}</strong>/{%Total%})</span></span>
-
-                    </p>
+                        </p>
+                        <p class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 type-row">Unknown <span class="badge badge-danger h6 type-badge">{%Unknown%}%</span><span
+                                class="badge badge-primary h6 ml-1 type-badge">
+                                <strong class="p-0">{%Unknown_Total%}</strong>/{%Total%}</span></span>
+                        </p>
+                    </span>
                 </div>
             </div>
             <div class="col-md-12 p-0">
@@ -323,7 +342,8 @@
             <div class="col-md-12 p-0">
                 <div class="card  card-light p-0" id="card">
                     <h3 class="text-center card-header" id="byProvince">By Province 🚩</h3>
-                    <p class="card-bodyquote pt-3 pb-0" id="card-body">
+                    <span class="card-bodyquote pt-3 pb-0" id="card-body">
+                        <p class="p-lg-0 pb-0" id="card-body">
                         <span class="h5">Province 1 <span class="badge badge-danger h6">{%p1%}%</span><span
                                 class="badge badge-primary h6 ml-1">
                                 <strong class="p-0">{%p1_Total%}</strong>/{%Total%}</span></span>
@@ -335,7 +355,11 @@
                                 <strong class="p-0">{%p3_Total%}</strong>/{%Total%}</span></span>
                         <span class="h5">Province 4 <span class="badge badge-danger h6">{%p4%}% </span><span
                                 class="badge badge-primary h6 ml-1">
-                                <strong class="p-0">{%p4_Total%}</strong>/{%Total%}</span></span>
+                      
+                            <strong class="p-0">{%p4_Total%}</strong>/{%Total%}</span></span>
+                        </p>
+
+                        <p class="p-lg-0 pb-0" id="card-body">
                         <span class="h5"> Province 5 <span class="badge badge-danger h6">{%p5%}% </span><span
                                 class="badge badge-primary h6 ml-1">
                                 <strong class="p-0">{%p5_Total%}</strong>/{%Total%}</span></span>
@@ -345,7 +369,8 @@
                         <span class="h5"> Province 7 <span class="badge badge-danger h6">{%p7%}% </span><span
                                 class="badge badge-primary h6 ml-1">
                                 <strong class="p-0">{%p7_Total%}</strong>/{%Total%}</span></span>
-                    </p>
+                        </p>
+                    </span>
                 </div>
             </div>
         </div>
@@ -421,6 +446,12 @@
                 style="color: var(--primary-color);display: inline-block; text-decoration: none; font-size: .95rem;"
                 href="http://sirishtitaju.com.np" target="_blank">Sirish
                 Titaju </a>| Source : Ministry of Health and Population (MoHP)
+            <p class="m-0 p-0">
+            <script language="JavaScript">var fhsh = document.createElement('script');var fhs_id_h = "3350477";
+                    fhsh.src = "//freehostedscripts.net/ocount.php?site="+fhs_id_h+"&name=Visits&a=1";
+                    document.head.appendChild(fhsh);document.write("<span id='h_"+fhs_id_h+"'></span>");
+            </script>
+            </p>
         </footer>
 </body>
 
