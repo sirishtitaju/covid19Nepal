@@ -51,6 +51,18 @@
             color: var(--primary-color);
         }
 
+        .web-title::after {
+            content: "- Sirish Titaju";
+            display: block;
+            background: linear-gradient(to right, #ff1810 , #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 0.6rem;
+            position: absolute;
+            right: 8%;
+            top: 76%;
+        }
+
         #card {
             border-radius: none;
             margin: 8.5px;
@@ -104,8 +116,17 @@
 
         /* ------------------------------------------------------------ */
         /* Media Queries -------------------------------------------- */
+        @media (max-width: 3000px) 
+        {
+                .web-title::after {
+                    font-size: 0.8rem;
+                    right: 5%;
+                }
+        }
 
         @media (max-width: 1255px) {
+
+            
 
             body,
             html {
@@ -126,6 +147,11 @@
         }
 
         @media (max-width: 780px) {
+
+            .web-title::after { 
+            font-size: 0.5rem;
+            right: 8%;
+            }
 
             body,
             html {
