@@ -5,18 +5,23 @@ const http = require("http");
 const url = require("url");
 
 const replaceTemplate = require("./dev-data/module");
+const replaceDistrictTemplate = require("./dev-data/districtmodule");
 
 const selCountry = fs.readFileSync("./dev-data/country.txt", "utf-8");
 const tempHtml = fs.readFileSync("./template-index.html", "utf-8");
 console.log(selCountry);
 
 const tempCard = fs.readFileSync("./template-column.html", "utf-8");
+const tempDistrictCard = fs.readFileSync("./template-districtColumn.html", "utf-8");
 // console.log(selCountry);
 
 // const api_url = `https://api.covid19api.com/dayone/country/${selCountry}`;
 const api_url = `https://data.nepalcorona.info/api/v1/covid/timeline`;
 const api_summary = `https://data.nepalcorona.info/api/v1/covid/summary`;
 const api_news = `https://nepalcorona.info/api/v1/news`;
+
+
+const summary = fs.readFileSync(`${__dirname}/summary-nepal.json`, 'utf-8');
 
 const readFilePro = (file) => {
     return new Promise((resolve, reject) => {
@@ -59,11 +64,14 @@ const server = http.createServer((req, res) => {
 
             dataObj = dataObj.reverse();
             dataObj.shift();
-            dataObj = dataObj.slice(0, 20);
+            dataObj = dataObj.slice(0, 70); ///////////////////////////////////////////// Slice
             // const date = arrObj.map((el) => replaceTemplates(tempColumn, el));
 
             const card = dataObj.map((el) => replaceTemplate(tempCard, el)).join(" ");
+
+
             let output = tempHtml.replace("{%Columns%}", card);
+
 
             /////Increase in active
             let confArr = dataObj.map((el) => el.totalCases);
@@ -87,7 +95,7 @@ const server = http.createServer((req, res) => {
             }
             var newArr = [...newConf];
 
-            newArr = newArr.slice(0, 20);
+            newArr = newArr.slice(0, 70); ///////////////////////////////////////////// Slice
             newArr.map((el) => {
                 if (el !== 0) return (output = output.replace("{%NewRecovered%}", el));
                 else return (output = output.replace("{%NewRecovered%}", ""));
@@ -124,10 +132,10 @@ const server = http.createServer((req, res) => {
             }
 
 
-            const summary = fs.readFileSync(`${__dirname}/summary-nepal.json`, 'utf-8');
             // console.log(summary);
 
             const summObj = JSON.parse(summary);
+
             const genderSumm = summObj.gender;
             const typeSumm = summObj.type;
             const ageSumm = summObj.age_group;
@@ -247,7 +255,7 @@ const server = http.createServer((req, res) => {
 
 
             let totalCount = (maleCount + femaleCount + agenderCount);
-            console.log(OCount);
+
 
 
             output = output.replace(/{%Total%}/g, maleCount + femaleCount + agenderCount);
@@ -304,7 +312,6 @@ const server = http.createServer((req, res) => {
             output = output.replace("{%p5_Total%}", p5Count);
             output = output.replace("{%p6_Total%}", p6Count);
             output = output.replace("{%p7_Total%}", p7Count);
-
 
             res.end(output);
             // console.log(
