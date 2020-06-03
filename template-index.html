@@ -47,35 +47,6 @@
             font-weight: 500;
         }
 
-        #web-title .svg-left {
-            width: auto;
-            fill: var(--color-white-dark);
-            stroke: var(--secondary-color);
-            stroke-width: 2px;
-            display: inline-block;
-            position: absolute;
-            left: -2%;
-            top: -60%;
-        }
-
-        #web-title .svg-right {
-            width: auto;
-            fill: var(--color-white-dark);
-            stroke: var(--primary-color);
-            stroke-width: 2px;
-            display: inline-block;
-            position: absolute;
-            right: 2%;
-            top: -60%;
-            z-index: 100;
-        }
-
-        #web-title svg line {
-            stroke: 1px solid var(--primary-color);
-        }
-
-
-
         .web-title span {
             color: var(--primary-color);
         }
@@ -131,13 +102,39 @@
             width: 50%;
         }
 
-        @media (max-width: 1266.5px) {
-            #byGender>.h5 {
-                display: block !important;
+        /* ------------------------------------------------------------ */
+        /* Media Queries -------------------------------------------- */
+
+        @media (max-width: 1255px) {
+
+            body,
+            html {
+                padding: 0 !important;
+                font-size: 85.5%;
             }
+
+        }
+
+        @media (max-width: 1050px) {
+
+            body,
+            html {
+                padding: 0 !important;
+                font-size: 80.5%;
+            }
+
         }
 
         @media (max-width: 780px) {
+
+            body,
+            html {
+                padding: 0 !important;
+            }
+
+            #web-title {
+                font-size: 1.5rem !important;
+            }
 
             #card .h5 {
                 display: block !important;
@@ -146,6 +143,53 @@
 
             #card .h6 {
                 display: inline-block !important;
+
+            }
+
+            #card-body {
+                margin-bottom: 0 !important;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+        }
+
+
+        @media (max-width: 443px) {
+
+            body,
+            html {
+                padding: 0 !important;
+                font-size: 78.5%;
+            }
+
+            #container {
+                padding: 0 5px;
+            }
+
+            #web-title {
+                font-size: 1.4rem !important;
+            }
+
+            #card .h5 {
+                display: block !important;
+                padding: 0px !important;
+            }
+
+            #card .h6 {
+                display: inline-block !important;
+            }
+        }
+
+        @media (max-width: 350px) {
+
+            body,
+            html {
+                padding: 0 !important;
+                font-size: 68.5%;
+            }
+
+            #web-title {
+                font-size: 1.2rem !important;
             }
         }
     </style>
@@ -161,7 +205,7 @@
         <!-- <img src="ani1.gif" alt="Flag"> -->
     </p>
 
-    <div class=" container-fluid">
+    <div class=" container-fluid" id="container">
         <div class="row">
             <div class="col-md-6  p-0">
                 <div class="card  card-light p-0" id="card">
@@ -212,7 +256,7 @@
                             </span><span class="badge badge-primary h6 ml-1">
                                 <strong class="p-0">{%Madult_Total%}</strong>/{%Total%}</span></span>
 
-                        <p class="p-lg-0">
+                        <p class="p-lg-0" id="card-body">
                             <span class="h5">👳 Middle Age II (40-49) <span class="badge badge-danger h6">{%MMadult%}%
                                 </span><span class="badge badge-primary h6 ml-1">
                                     <strong class="p-0">{%MMadult_Total%}</strong>/{%Total%}</span></span>
@@ -221,7 +265,7 @@
                                     <strong class="p-0">{%MMMadult_Total%}</strong>/{%Total%}</span></span>
                         </p>
 
-                        <p class="p-lg-0">
+                        <p class="p-lg-0" id="card-body">
                             <span class="h5">👴 Old Age I (60-69) <span class="badge badge-danger h6">{%Old%}%
                                 </span><span class="badge badge-primary h6 ml-1">
                                     <strong class="p-0">{%Old_Total%}</strong>/{%Total%}</span></span>
@@ -267,8 +311,8 @@
         </div>
     </div>
 
-    <div class="container-fluid">
-        <table class="table table-hover table-light" id="table">
+    <div class="container-fluid" id="container">
+        <table class="table table-responsive-sm table-light" id="table">
             <thead>
                 <tr background="white">
                     <h3 style="background-color: #f7f7f7; border-radius:5px 5px 0 0;"

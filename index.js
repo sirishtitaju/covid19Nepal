@@ -59,6 +59,7 @@ const server = http.createServer((req, res) => {
 
             dataObj = dataObj.reverse();
             dataObj.shift();
+            dataObj = dataObj.slice(0, 20);
             // const date = arrObj.map((el) => replaceTemplates(tempColumn, el));
 
             const card = dataObj.map((el) => replaceTemplate(tempCard, el)).join(" ");
@@ -86,6 +87,7 @@ const server = http.createServer((req, res) => {
             }
             var newArr = [...newConf];
 
+            newArr = newArr.slice(0, 20);
             newArr.map((el) => {
                 if (el !== 0) return (output = output.replace("{%NewRecovered%}", el));
                 else return (output = output.replace("{%NewRecovered%}", ""));
