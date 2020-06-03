@@ -2,7 +2,7 @@
 
 ## Built using Node.js & Express
 
-## Live at : <a href="http://covid19.sirishtitaju.com.np">Here</a>
+## Live : <a href="http://covid19.sirishtitaju.com.np" target="_blank">Here</a>
 
 ### Preview
 
