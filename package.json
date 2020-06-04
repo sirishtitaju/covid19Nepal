@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
+    "request": "^2.88.2",
     "superagent": "^5.2.2"
   },
   "engines": {
