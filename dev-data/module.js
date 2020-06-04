@@ -5,7 +5,7 @@ module.exports = (temp, cases) => {
     let output = temp;
     // output = output.replace(/{%Country%}/g, cases.Country);
     output = output.replace(/{%Date%}/g, cases.date);
-    output = output.replace(/{%Confirmed%}/g, cases.totalCases);
+    output = output.replace(/{%Confirmed%}/g, cases.totalCases + 1);
     output = output.replace(/{%Recovered%}/g, cases.totalRecoveries);
     output = output.replace(/{%Deaths%}/g, cases.totalDeaths);
     return output;

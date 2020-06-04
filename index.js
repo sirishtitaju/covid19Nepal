@@ -18,6 +18,7 @@ console.log(selCountry);
 
 const tempCard = fs.readFileSync("./template-column.html", "utf-8");
 const tempNewsCard = fs.readFileSync("./template-newsCard.html", "utf-8");
+const tempFaqsCard = fs.readFileSync("./template-faqsCard.html", "utf-8");
 // console.log(selCountry);
 // const api_url = `https://api.covid19api.com/dayone/country/${selCountry}`;
 //////////////////////////////////////////////////////////
@@ -34,6 +35,11 @@ function apiCall(reqOps) {
   });
 }
 
+var overall = {
+  url: "https://nepalcorona.info/api/v1/data/nepal",
+};
+
+
 var timeline = {
   url: "https://data.nepalcorona.info/api/v1/covid/timeline",
 };
@@ -42,6 +48,9 @@ var summary_np = {
   url: "https://data.nepalcorona.info/api/v1/covid/summary",
 };
 
+var faqs = {
+  url: "https://nepalcorona.info/api/v1/faqs",
+};
 var news = {
   url: "https://nepalcorona.info/api/v1/news",
 };
@@ -49,12 +58,14 @@ var news = {
 
 const server = app.get("/", async function (req, res) {
   try {
+    let data_overall = await apiCall(overall);
     let data_summary = await apiCall(summary_np);
+    let data_faqs = await apiCall(faqs);
     let data_timeline = await apiCall(timeline);
     let data_news = await apiCall(news);
     data_timeline.reverse();
     data_timeline.shift();
-    data_timeline = data_timeline.slice(0, 62); ///////////////////////////////////////////// Slice
+    data_timeline = data_timeline.slice(0, 51); ///////////////////////////////////////////// Slice
     const card = data_timeline
       .map((el) => replaceTemplate(tempCard, el))
       .join(" ");
@@ -82,7 +93,7 @@ const server = app.get("/", async function (req, res) {
     }
     var newArr = [...newConf];
 
-    newArr = newArr.slice(0, 62); ///////////////////////////////////////////// Slice
+    newArr = newArr.slice(0, 51); ///////////////////////////////////////////// Slice
     newArr.map((el) => {
       if (el !== 0) return (output = output.replace("{%NewRecovered%}", el));
       else return (output = output.replace("{%NewRecovered%}", ""));
@@ -160,8 +171,14 @@ const server = app.get("/", async function (req, res) {
       if (el.gender === "male") {
         maleCount = el.count;
       }
+      if (el.gender === "Male") {
+        maleCount += el.count;
+      }
       if (el.gender === "female") {
         femaleCount = el.count;
+      }
+      if (el.gender === "Female") {
+        femaleCount += el.count;
       }
       if (el.gender === null) {
         agenderCount = el.count;
@@ -231,11 +248,12 @@ const server = app.get("/", async function (req, res) {
       }
     });
 
-    let totalCount = maleCount + femaleCount + agenderCount;
+    let totalCount = p1Count + p2Count + p3Count + p4Count + p5Count + p6Count + p7Count;
+    console.log(totalCount);
 
     output = output.replace(
       /{%Total%}/g,
-      maleCount + femaleCount + agenderCount
+      totalCount
     );
 
     output = output.replace(
@@ -243,12 +261,24 @@ const server = app.get("/", async function (req, res) {
       ((maleCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%Male_cn%}",
+      ((maleCount / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%Female%}",
       ((femaleCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%Female_cn%}",
+      ((femaleCount / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%Agender%}",
       ((agenderCount / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%Agender_cn%}",
+      ((agenderCount / totalCount) * 100).toFixed(0)
     );
 
     output = output.replace("{%Total_Male%}", maleCount);
@@ -260,12 +290,24 @@ const server = app.get("/", async function (req, res) {
       ((importCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%Imported_cn%}",
+      ((importCount / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%Local%}",
       ((localCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%Local_cn%}",
+      ((localCount / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%Unknown%}",
       ((nulltypeCount / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%Unknown_cn%}",
+      ((nulltypeCount / totalCount) * 100).toFixed(0)
     );
 
     output = output.replace("{%Imported_Total%}", importCount);
@@ -277,32 +319,65 @@ const server = app.get("/", async function (req, res) {
       ((CCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%Child_cn%}",
+      ((CCount / totalCount) * 100).toFixed(0)
+    );
+
+    output = output.replace(
       "{%Adult%}",
       ((ACount / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%Adult_cn%}",
+      ((ACount / totalCount) * 100).toFixed(0)
     );
     output = output.replace(
       "{%Madult%}",
       ((MCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%Madult_cn%}",
+      ((MCount / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%MMadult%}",
       ((MMCount / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%MMadult_cn%}",
+      ((MMCount / totalCount) * 100).toFixed(0)
     );
     output = output.replace(
       "{%MMMadult%}",
       ((MMMCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%MMMadult_cn%}",
+      ((MMMCount / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%Old%}",
       ((OCount / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%Old_cn%}",
+      ((OCount / totalCount) * 100).toFixed(0)
     );
     output = output.replace(
       "{%OOld%}",
       ((OOCount / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%OOld_cn%}",
+      ((OOCount / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%Unknown_Age%}",
       ((UACount / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%Unknown_Age_cn%}",
+      ((UACount / totalCount) * 100).toFixed(0)
     );
 
     output = output.replace("{%Child_Total%}", CCount);
@@ -319,28 +394,56 @@ const server = app.get("/", async function (req, res) {
       ((p1Count / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%p1_cn%}",
+      ((p1Count / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%p2%}",
       ((p2Count / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%p2_cn%}",
+      ((p2Count / totalCount) * 100).toFixed(0)
     );
     output = output.replace(
       "{%p3%}",
       ((p3Count / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%p3_cn%}",
+      ((p3Count / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%p4%}",
       ((p4Count / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%p4_cn%}",
+      ((p4Count / totalCount) * 100).toFixed(0)
     );
     output = output.replace(
       "{%p5%}",
       ((p5Count / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%p5_cn%}",
+      ((p5Count / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%p6%}",
       ((p6Count / totalCount) * 100).toFixed(2)
     );
     output = output.replace(
+      "{%p6_cn%}",
+      ((p6Count / totalCount) * 100).toFixed(0)
+    );
+    output = output.replace(
       "{%p7%}",
       ((p7Count / totalCount) * 100).toFixed(2)
+    );
+    output = output.replace(
+      "{%p7_cn%}",
+      ((p7Count / totalCount) * 100).toFixed(0)
     );
 
     output = output.replace("{%p1_Total%}", p1Count);
@@ -350,7 +453,6 @@ const server = app.get("/", async function (req, res) {
     output = output.replace("{%p5_Total%}", p5Count);
     output = output.replace("{%p6_Total%}", p6Count);
     output = output.replace("{%p7_Total%}", p7Count);
-
 
     ///////////////////////////////////////////////////////////////
     //////////////////////////////////////// NEWSSSS
@@ -362,16 +464,76 @@ const server = app.get("/", async function (req, res) {
       outputNews = outputNews.replace(/{%img_url%}/g, news.image_url);
       outputNews = outputNews.replace(/{%news_title%}/g, news.title);
       outputNews = outputNews.replace(/{%news_description%}/g, news.summary);
+      outputNews = outputNews.replace(/{%news_source%}/g, news.source);
 
       return outputNews;
-    }
+    };
 
-    const newsCard = (data_news.data).slice(0, 6)
+
+    const newsCard = data_news.data
+      .slice(0, 10)
       .map((el) => replaceNews(tempNewsCard, el))
       .join(" ");
 
     output = output.replace("{%Cards%}", newsCard);
 
+
+
+    //////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////// Overall
+    const tested_tot = data_overall.tested_total;
+    output = output.replace(/{%Total_Tested%}/g, tested_tot);
+
+    const tested_pos = data_overall.tested_positive;
+    output = output.replace(/{%Total_Tested_Positive%}/g, tested_pos);
+    const tested_pos_per = ((tested_pos / tested_tot) * 100).toFixed(2);
+    output = output.replace("{%Tested_Positive%}", tested_pos_per);
+    const tested_pos_per_cn = ((tested_pos / tested_tot) * 100).toFixed(0);
+    output = output.replace("{%Tested_Positive_cn%}", tested_pos_per_cn);
+
+    const recovered = data_overall.recovered;
+    output = output.replace("{%Total_Tested_Recovered%}", recovered);
+    const recovered_per = ((recovered / tested_pos) * 100).toFixed(2);
+    output = output.replace("{%Tested_Recovered%}", recovered_per);
+    const recovered_per_cn = ((recovered / tested_pos) * 100).toFixed(0);
+    output = output.replace("{%Tested_Recovered_cn%}", recovered_per_cn);
+
+
+    const deaths = data_overall.deaths;
+    output = output.replace("{%Total_Tested_Deaths%}", deaths);
+    const deaths_per = ((deaths / tested_pos) * 100).toFixed(2);
+    output = output.replace("{%Tested_Deaths%}", deaths_per);
+    const deaths_per_cn = ((deaths / tested_pos) * 100).toFixed(0);
+    output = output.replace("{%Tested_Deaths_cn%}", deaths_per_cn);
+
+
+    const in_isolation = data_overall.in_isolation;
+    output = output.replace("{%Total_In_Isolation%}", in_isolation);
+    const in_quarantined = data_overall.quarantined;
+    output = output.replace("{%Total_In_Quarantined%}", in_quarantined);
+    const tested_rdt = data_overall.tested_rdt;
+    output = output.replace("{%Total_Tested_RDT%}", tested_rdt);
+
+
+
+    ///////////////////////////////////////////////
+    ////////////////////// FAQss
+    const replaceFaqs = (temp, faqs) => {
+      let outputfaqs = temp;
+
+      outputfaqs = outputfaqs.replace(/{%faqs_title%}/g, faqs.question_np);
+      outputfaqs = outputfaqs.replace(/{%faqs_answer%}/g, faqs.answer_np);
+
+
+      return outputfaqs;
+    };
+
+    const faqsCard = data_faqs.data.slice(0, 9)
+      .map((el) => replaceFaqs(tempFaqsCard, el))
+      .join(" ");
+
+    output = output.replace("{%faqs_Cards%}", faqsCard);
+    // console.log(output);
     res.end(output);
   } catch (err) {
     console.log("Error occured in one of the API call: ", err);
