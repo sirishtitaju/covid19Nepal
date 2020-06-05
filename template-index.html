@@ -625,6 +625,14 @@
                 margin: 0;
                 padding: 7px !important;
             }
+           
+        }
+        @media (max-width: 767px) {
+            #col-news
+            {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
 
         }
 
@@ -653,6 +661,7 @@
             #card .h6 {
                 display: inline-block !important;
             }
+           
         }
 
         @media (max-width: 400px) {
@@ -674,9 +683,28 @@
             body,
             html {
                 padding: 0 !important;
-                font-size: 60.5%;
+                font-size: 55.5%;
             }
         }
+
+        @media (max-width: 360.5px) {
+
+            body,
+            html {
+                  padding: 0 !important;
+                    font-size:45%;
+                }
+            }
+
+
+            @media (max-width: 310.5px) {
+
+                body,
+            html {
+             padding: 0 !important;
+                font-size:40%;
+              }
+                }
     </style>
     <p class="web-title" id="web-title">
         <!-- <svg class="p-0 m-0 d-inline svg-left">
@@ -692,7 +720,7 @@
 
     <div class="container-fluid" id="container">
         <div class="row py-0">
-            <div class="col-md-12  py-0 mx-0">
+            <div class="col-md-12  py-md-0 mx-md-0">
                 <div class="card  card-light p-0 m-0" id="cardOverall">
                     <h3 class="text-center text-danger card-header" id="byGender">
                         By Overall 📈
@@ -1192,7 +1220,7 @@
 
             <!-- News------------------ -->
 
-            <div class="col-md-4 pt-0 pr-md-0">
+            <div class="col-md-4 pt-md-0" id="col-news">
                 <h3 class="text-center card-header" id="byType"
                     style="padding:20px; background-color: #f7f7f7; color: var(--primary-color)">Latest
                     News 📰</h3>
@@ -1208,15 +1236,14 @@
                         style="color: var(--primary-color);display: inline-block; text-decoration: none; font-size: .95rem;"
                         href="http://sirishtitaju.com.np" target="_blank">Sirish
                         Titaju </a>| Source : Ministry of Health and Population (MoHP)
-                    <p class="m-0 p-0">
-                        <script language="JavaScript">
-                            var fhsh = document.createElement('script');
-                            var fhs_id_h = "3350477";
-                            fhsh.src = "//freehostedscripts.net/ocount.php?site=" + fhs_id_h + "&name=Visits&a=1";
-                            document.head.appendChild(fhsh);
-                            document.write("<span id='h_" + fhs_id_h + "'></span>");
-                        </script>
-                    </p>
+                    <span class="m-2 p-0">
+                    <!-- hitwebcounter Code START -->
+                    <a href="https://www.hitwebcounter.com" target="_blank">
+                        <img src="https://hitwebcounter.com/counter/counter.php?page=7431879&style=0007&nbdigits=5&type=page&initCount=0" title="Web Counter" Alt="counter free"   border="0" > |
+                        <img src="https://hitwebcounter.com/counter/counter.php?page=7431872&style=0007&nbdigits=5&type=ip&initCount=0" title="Web Counter" Alt="Web counter"   border="0" >
+                    </a>                                    
+                         
+                </span>
                 </footer>
             </div>
 
