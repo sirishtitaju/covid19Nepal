@@ -65,6 +65,19 @@ const server = app.get("/", async function (req, res) {
     let data_news = await apiCall(news);
     data_timeline.reverse();
     data_timeline.shift();
+    var todayCase = data_timeline.shift();
+
+
+    console.log(todayCase);
+    todayCase.totalCases = data_overall.tested_positive - 1;
+    todayCase.totalRecoveries = data_overall.recovered;
+    todayCase.totalDeaths = data_overall.deaths;
+    console.log(todayCase);
+
+    data_timeline.unshift(todayCase);
+
+
+
     data_timeline = data_timeline.slice(0, 51); ///////////////////////////////////////////// Slice
     const card = data_timeline
       .map((el) => replaceTemplate(tempCard, el))
@@ -248,8 +261,7 @@ const server = app.get("/", async function (req, res) {
       }
     });
 
-    let totalCount = p1Count + p2Count + p3Count + p4Count + p5Count + p6Count + p7Count;
-    console.log(totalCount);
+    let totalCount = data_overall.tested_positive;
 
     output = output.replace(
       /{%Total%}/g,
