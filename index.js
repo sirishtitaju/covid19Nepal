@@ -609,9 +609,10 @@ const server = app.get("/", async function (req, res) {
       searchDistrict = searchDistrict.replace("{%MRecovered_Cases%}", recovCount);
       searchDistrict = searchDistrict.replace("{%MDeaths_Cases%}", deathCount);
 
+      searchDistrict = searchDistrict.replace("{%MM_Cases%}", maleCount);
+      searchDistrict = searchDistrict.replace("{%MF_Cases%}", femaleCount);
+
       output = output.replace("{%M-Result%}", searchDistrict);
-
-
     } else {
       if (district !== undefined) {
         if (districtLength > 0) {
@@ -691,6 +692,9 @@ const server = app.get("/", async function (req, res) {
       searchMunicipal = searchMunicipal.replace("{%MActive_Cases%}", activeCount);
       searchMunicipal = searchMunicipal.replace("{%MRecovered_Cases%}", recovCount);
       searchMunicipal = searchMunicipal.replace("{%MDeaths_Cases%}", deathCount);
+
+      searchMunicipal = searchMunicipal.replace("{%MM_Cases%}", maleCount);
+      searchMunicipal = searchMunicipal.replace("{%MF_Cases%}", femaleCount);
 
       output = output.replace("{%M-Result%}", searchMunicipal);
 
