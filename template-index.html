@@ -28,7 +28,7 @@
 
         * {
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
 
@@ -729,17 +729,17 @@
                     <h3 class="text-center text-danger card-header" id="byGender">
                         Search 🔍
                     </h3>
-                    <span class="card-bodyquote text-center m-0">
-                        <form action="/" method="GET" style="display:inline-block; padding:8px;">
-                            <input style="padding:8px;" type="text" name="district"
-                                placeholder="Search (E.g. Kathmandu)" required />
+                    <span class="card-bodyquote text-center m-0 py-0 px-xs-0">
+                        <form class="p-lg-4 p-md-3 p-sm-3 p-xs-0" action="/" method="GET" style="display:inline-block;">
+                            <input style="padding:8px;" type="text" name="district" placeholder="Search (Eg:Kathmandu)"
+                                required />
                             <br />
                             <input class="btn btn-primary mt-3" type="submit" value="By District"
                                 onclick="show_Dresult()" />
                         </form>
-                        <form action="/" method="GET" style="display:inline-block">
+                        <form class="p-lg-4 p-md-3 p-sm-3 p-xs-0" action="/" method="GET" style="display:inline-block;">
                             <input style="padding:8px;" type="text" name="municipal"
-                                placeholder="Search (E.g. Suryabinayak)" required />
+                                placeholder="Search (Eg:Suryabinayak)" required />
                             <br />
                             <input class="btn  btn-danger mt-3" type="submit" value="By Municipality"
                                 onclick="show_Mresult()" />
