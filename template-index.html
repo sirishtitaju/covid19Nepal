@@ -727,62 +727,28 @@
 
                 <div class="card  card-light p-0 m-0" id="cardOverall">
                     <h3 class="text-center text-danger card-header" id="byGender">
-                        By Search 🔍
+                        Search 🔍
                     </h3>
                     <span class="card-bodyquote text-center m-0">
-                        <form action="/" method="GET" style="display:inline-block">
-                            <input type="text" name="district" placeholder="Search (E.g. Kathmandu)" required />
+                        <form action="/" method="GET" style="display:inline-block; padding:8px;">
+                            <input style="padding:8px;" type="text" name="district"
+                                placeholder="Search (E.g. Kathmandu)" required />
                             <br />
-                            <input class="btn btn-lg btn-primary mt-3" type="submit" value="By District"
+                            <input class="btn btn-primary mt-3" type="submit" value="By District"
                                 onclick="show_Dresult()" />
                         </form>
                         <form action="/" method="GET" style="display:inline-block">
-                            <input type="text" name="municipal" placeholder="Search (E.g. Suryabinayak)" required />
+                            <input style="padding:8px;" type="text" name="municipal"
+                                placeholder="Search (E.g. Suryabinayak)" required />
                             <br />
-                            <input class="btn btn-lg btn-danger mt-3" type="submit" value="By Municipality"
+                            <input class="btn  btn-danger mt-3" type="submit" value="By Municipality"
                                 onclick="show_Mresult()" />
                         </form>
                         {%M-Result%}
                     </span>
                 </div>
             </div>
-            <!-- <script>
-                const show_Dresult = () => {
-                    let Dres = document.querySelector('.Dresult');
-                    Dres.style.display = 'block';
-
-                    let Mres = document.querySelector('.Mresult');
-                    Mres.style.display = 'none';
-                }
-                const show_Mresult = () => {
-                    let Dres = document.querySelector('.Dresult');
-                    Dres.style.display = 'none';
-
-                    let Mres = document.querySelector('.Mresult');
-                    Mres.style.display = 'block';
-                }
-            </script> -->
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-
         <div class="row py-0">
             <div class="col-md-12  py-md-0 mx-md-0">
                 <div class="card  card-light p-0 m-0" id="cardOverall">
@@ -809,7 +775,8 @@
                             <span class="h5 gender-row"> 😊 Total Recovered <span
                                     class="badge badge-primary h6 ml-1 gender-badge">
                                     <strong class="p-0" style="color:#ffe8af">
-                                        {%Total_Tested_Recovered%}</strong> / {%Total_Tested_Positive%}</span></span>
+                                        {%Total_Tested_Recovered%}</strong> /
+                                    {%Total_Tested_Positive%}</span></span>
 
                             <div class="progress mb-4 p-0 py-2" style="position:relative;">
                                 <div class="progress-bar  p-0 w{%Tested_Recovered_cn%}" style="
