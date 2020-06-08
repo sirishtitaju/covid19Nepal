@@ -479,7 +479,7 @@ const server = app.get("/", async function (req, res) {
 
 
     const newsCard = data_news.data
-      .slice(0, 10)
+      .slice(0, 9)
       .map((el) => replaceNews(tempNewsCard, el))
       .join(" ");
 
