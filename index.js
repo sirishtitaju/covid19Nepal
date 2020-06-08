@@ -581,6 +581,10 @@ const server = app.get("/", async function (req, res) {
 
       let maleCount = 0;
       let femaleCount = 0;
+      let nullCount = 0;
+
+      console.log(casesByDistrict);
+
 
       casesByDistrict.map((el) => {
         if (el.currentState === "active") {
@@ -598,6 +602,9 @@ const server = app.get("/", async function (req, res) {
         if (el.gender === "female") {
           femaleCount++;
         }
+        if (el.gender === null) {
+          nullCount++;
+        }
       });
 
       let searchDistrict = tempSearchCard;
@@ -611,6 +618,7 @@ const server = app.get("/", async function (req, res) {
 
       searchDistrict = searchDistrict.replace("{%MM_Cases%}", maleCount);
       searchDistrict = searchDistrict.replace("{%MF_Cases%}", femaleCount);
+      searchDistrict = searchDistrict.replace("{%UN_Cases%}", nullCount);
 
       output = output.replace("{%M-Result%}", searchDistrict);
     } else {
