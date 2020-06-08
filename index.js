@@ -545,7 +545,10 @@ const server = app.get("/", async function (req, res) {
     ////////////////////////////////////////////////////////
     //////////////// By District
     const district = req.query.district; //district is the name of your input box
-
+    if (district !== undefined) {
+      var districtLength = district.length;
+      // console.log("District Length : " + districtLength);
+    }
     console.log(district);
     let reqDistrict_ID = null;
     let districtNotFound = false;
@@ -610,14 +613,22 @@ const server = app.get("/", async function (req, res) {
 
 
     } else {
-      console.log("Nothing Searched in the District");
-      // output = output.replace("{%M-Result%}", `<h4><span class="text-danger p-0">${district}</span> Not Found :(</h4>`);
+      if (district !== undefined) {
+        if (districtLength > 0) {
+          output = output.replace("{%M-Result%}", `<h4>District <span class="text-danger p-0">${district}</span> Not Found :(</h4>`);
+        }
+      } else {
+        console.log("Nothing Searched in the District");
+      }
     }
 
     //////////////////////////////////////////////////////////////////
     //////////////////// Municipality
     const municipal = req.query.municipal;
-
+    if (municipal !== undefined) {
+      var municipalLength = municipal.length;
+      // console.log("District Length : " + districtLength);
+    }
     // console.log(municipal);
     var reqMunicipal_ID = null;
     var municipalNotFound = false;
@@ -686,8 +697,14 @@ const server = app.get("/", async function (req, res) {
       console.log("Data Municipality ------------------------------------------------ : \n" + data_municipalsByID);
 
     } else {
-      output = output.replace("{%M-Result%}", "");
-      console.log("Nothing Searched in the Municipality");
+      if (municipal !== undefined) {
+        if (municipalLength > 0) {
+          output = output.replace("{%M-Result%}", `<h4>Municipality <span class="text-danger p-0">${municipal}</span> Not Found :(</h4>`);
+        }
+      } else {
+        console.log("Nothing Searched in the Municipality");
+        output = output.replace("{%M-Result%}", "");
+      }
     }
 
 
