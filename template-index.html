@@ -625,15 +625,18 @@
                 margin: 0;
                 padding: 7px !important;
             }
-           
+
         }
+
         @media (max-width: 767px) {
-            #col-news
-            {
+            #col-news {
                 padding-left: 0 !important;
                 padding-right: 0 !important;
             }
 
+            .faqs_lists {
+                display: none;
+            }
         }
 
 
@@ -661,7 +664,7 @@
             #card .h6 {
                 display: inline-block !important;
             }
-           
+
         }
 
         @media (max-width: 400px) {
@@ -691,20 +694,20 @@
 
             body,
             html {
-                  padding: 0 !important;
-                    font-size:45%;
-                }
+                padding: 0 !important;
+                font-size: 45%;
             }
+        }
 
 
-            @media (max-width: 310.5px) {
+        @media (max-width: 310.5px) {
 
-                body,
+            body,
             html {
-             padding: 0 !important;
-                font-size:40%;
-              }
-                }
+                padding: 0 !important;
+                font-size: 40%;
+            }
+        }
     </style>
     <p class="web-title" id="web-title">
         <!-- <svg class="p-0 m-0 d-inline svg-left">
@@ -719,6 +722,67 @@
     </p>
 
     <div class="container-fluid" id="container">
+        <div class="row px-md-0">
+            <div class="col-md-12 px-md-0 pt-0" style="display:flex; justify-content:space-around;">
+
+                <div class="card  card-light p-0 m-0" id="cardOverall">
+                    <h3 class="text-center text-danger card-header" id="byGender">
+                        By Search 🔍
+                    </h3>
+                    <span class="card-bodyquote text-center m-0">
+                        <form action="/" method="GET" style="display:inline-block">
+                            <input type="text" name="district" placeholder="Search (E.g. Kathmandu)" required />
+                            <br />
+                            <input class="btn btn-lg btn-primary mt-3" type="submit" value="By District"
+                                onclick="show_Dresult()" />
+                        </form>
+                        <form action="/" method="GET" style="display:inline-block">
+                            <input type="text" name="municipal" placeholder="Search (E.g. Suryabinayak)" required />
+                            <br />
+                            <input class="btn btn-lg btn-danger mt-3" type="submit" value="By Municipality"
+                                onclick="show_Mresult()" />
+                        </form>
+                        {%M-Result%}
+                    </span>
+                </div>
+            </div>
+            <!-- <script>
+                const show_Dresult = () => {
+                    let Dres = document.querySelector('.Dresult');
+                    Dres.style.display = 'block';
+
+                    let Mres = document.querySelector('.Mresult');
+                    Mres.style.display = 'none';
+                }
+                const show_Mresult = () => {
+                    let Dres = document.querySelector('.Dresult');
+                    Dres.style.display = 'none';
+
+                    let Mres = document.querySelector('.Mresult');
+                    Mres.style.display = 'block';
+                }
+            </script> -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row py-0">
             <div class="col-md-12  py-md-0 mx-md-0">
                 <div class="card  card-light p-0 m-0" id="cardOverall">
@@ -809,377 +873,376 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-
-        <div class="row">
-            <div class="col-md-6  p-0">
-                <div class="card  card-light p-0" id="card">
-                    <h3 class="text-center card-header" id="byGender">By Gender 👫</h3>
-                    <span class="card-bodyquote text-center pt-3 pb-0">
-                        <span class="p-lg-0 pb-0" id="card-body">
-                            <span class="h5 gender-row">👦 Male <span class="badge badge-primary h6 ml-1 gender-badge">
-                                    <strong class="p-0" style="color:#ffe8af">
-                                        {%Total_Male%}</strong> / {%Total%}</span></span>
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Male_cn%}" style="
+    <div class="row">
+        <div class="col-md-6  p-0">
+            <div class="card  card-light p-0" id="card">
+                <h3 class="text-center card-header" id="byGender">By Gender 👫</h3>
+                <span class="card-bodyquote text-center pt-3 pb-0">
+                    <span class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 gender-row">👦 Male <span class="badge badge-primary h6 ml-1 gender-badge">
+                                <strong class="p-0" style="color:#ffe8af">
+                                    {%Total_Male%}</strong> / {%Total%}</span></span>
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Male_cn%}" style="
                                         color:black;
                                         background-color:#ffe8af;
                                         position: absolute;
                                         top: 0;
                                         left: 0;">
-                                    {%Male%}%
-                                </div>
+                                {%Male%}%
                             </div>
+                        </div>
 
-                            <span class="h5 gender-row">👧 Female <span
-                                    class="badge badge-primary h6 ml-1 gender-badge">
-                                    <strong class="p-0" style="color:#ffe8af">
-                                        {%Total_Female%}</strong> / {%Total%}</span></span>
+                        <span class="h5 gender-row">👧 Female <span class="badge badge-primary h6 ml-1 gender-badge">
+                                <strong class="p-0" style="color:#ffe8af">
+                                    {%Total_Female%}</strong> / {%Total%}</span></span>
 
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Female_cn%}" style="
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Female_cn%}" style="
                                         color:black;
                                         background-color:#ffe8af;
                                         position: absolute;
                                         top: 0;
                                         left: 0;">
-                                    {%Female%}%
+                                {%Female%}%
 
-                                </div>
                             </div>
+                        </div>
 
-                        </span>
-                        <span class="p-lg-0 pb-0" id="card-body">
-                            <span class="h5 gender-row">Unknown <span class="badge badge-primary h6 ml-1 gender-badge">
-                                    <strong class="p-0" style="color:#ffe8af">
-                                        {%Total_Agender%}</strong> / {%Total%}</span></span>
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Agender_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%Agender%}%
-                                </div>
-                            </div>
-                        </span>
                     </span>
-                </div>
-            </div>
-
-            <div class="col-md-6 p-0">
-                <div class="card  card-light p-0" id="card">
-                    <h3 class="text-center card-header" id="byType">By Type 🖖</h3>
-                    <span class="card-bodyquote text-center  pt-3 pb-0 ">
-                        <span class="p-lg-0 pb-0" id="card-body">
-                            <span class="h5 type-row">✈️ Imported <span class="badge badge-primary h6 ml-1 type-badge">
-                                    <strong class="p-0" style="color:#ffe8af">
-                                        {%Imported_Total%}</strong> / {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Imported_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%Imported%}%
-                                </div>
+                    <span class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 gender-row">Unknown <span class="badge badge-primary h6 ml-1 gender-badge">
+                                <strong class="p-0" style="color:#ffe8af">
+                                    {%Total_Agender%}</strong> / {%Total%}</span></span>
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Agender_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%Agender%}%
                             </div>
-
-                            <span class="h5 type-row">🏚 Local <span class="badge badge-primary h6 ml-1 type-badge">
-                                    <strong class="p-0" style="color:#ffe8af">{%Local_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Local_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%Local%}%
-                                </div>
-                            </div>
-                        </span>
-                        <span class="p-lg-0 pb-0" id="card-body">
-                            <span class="h5 type-row">Unknown <span class="badge badge-primary h6 ml-1 type-badge">
-                                    <strong class="p-0" style="color:#ffe8af">{%Unknown_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Unknown_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%Unknown%}%
-                                </div>
-                            </div>
-                        </span>
+                        </div>
                     </span>
-                </div>
-            </div>
-
-
-            <div class="col-md-6 p-0">
-                <div class="card  card-light p-0" id="card">
-                    <h3 class="text-center card-header" id="byAge">By Age 👨‍👨‍👧‍👦</h3>
-                    <span class="card-bodyquote pt-3 pb-0" id="card-body">
-                        <span class="p-lg-0 pb-0">
-                            <span class="h5">👶 Child (0-17) <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%Child_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Child_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%Child%}%
-                                </div>
-                            </div>
-
-                            <span class="h5">👱 Adult (18-29)<span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%Adult_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Adult_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%Adult%}%
-                                </div>
-                            </div>
-
-                            <span class="h5">👲 Middle Age I (30-39)<span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%Madult_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Madult_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%Madult%}%
-                                </div>
-                            </div>
-                        </span>
-                        <span class="p-lg-0">
-                            <span class="h5">👳 Middle Age II (40-49)<span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%MMadult_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                                <div class="progress-bar  p-0 w{%MMadult_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%MMadult%}%
-                                </div>
-                            </div>
-
-                            <span class="h5">🎅 Middle Age III (50-59) <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%MMMadult_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%MMMadult_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%MMMadult%}%
-                                </div>
-                            </div>
-                        </span>
-
-                        <span class="p-lg-0 pb-0">
-                            <span class="h5">👴 Old Age I (60-69) <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%Old_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Old_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%Old%}%
-                                </div>
-                            </div>
-
-                            <span class="h5">👵 Old Age II (70+) <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%OOld_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0  w{%OOld_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%OOld%}%
-                                </div>
-                            </div>
-
-                            <span class="h5">Unknown <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%Unknown_Age_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                                <div class="progress-bar  p-0  w{%Unknown_Age_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%Unknown_Age%}%
-                                </div>
-                            </div>
-
-                        </span>
-                    </span>
-                </div>
-            </div>
-            <div class="col-md-6 p-0">
-                <div class="card  card-light p-0" id="card">
-                    <h3 class="text-center card-header" id="byProvince">By Province 🚩</h3>
-                    <span class="card-bodyquote" id="card-body" style="padding:2.75rem;">
-                        <span class="p-lg-0 pb-0">
-                            <span class="h5">Province 1<span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%p1_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                                <div class="progress-bar  p-0 w{%p1_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%p1%}%
-                                </div>
-                            </div>
-
-                            <span class="h5"> Province 2 <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%p2_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%p2_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%p2%}%
-                                </div>
-                            </div>
-
-
-                            <span class="h5">Province 3<span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%p3_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%p3_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%p3%}%
-                                </div>
-                            </div>
-
-
-                            <span class="h5">Province 4 <span class="badge badge-primary h6 ml-1">
-
-                                    <strong class="p-0" style="color:#ffe8af">{%p4_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%p4_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                    {%p4%}%
-                                </div>
-                            </div>
-                        </span>
-
-                        <span class="p-lg-0 pb-0">
-                            <span class="h5"> Province 5 <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%p5_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%p5_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%p5%}%
-                                </div>
-                            </div>
-
-                            <span class="h5">Province 6 <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%p6_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%p6_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%p6%}%
-                                </div>
-                            </div>
-
-                            <span class="h5"> Province 7 <span class="badge badge-primary h6 ml-1">
-                                    <strong class="p-0" style="color:#ffe8af">{%p7_Total%}</strong> /
-                                    {%Total%}</span></span>
-
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%p7_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%p7%}%
-                                </div>
-                            </div>
-
-                        </span>
-                    </span>
-                </div>
+                </span>
             </div>
         </div>
+
+        <div class="col-md-6 p-0">
+            <div class="card  card-light p-0" id="card">
+                <h3 class="text-center card-header" id="byType">By Type 🖖</h3>
+                <span class="card-bodyquote text-center  pt-3 pb-0 ">
+                    <span class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 type-row">✈️ Imported <span class="badge badge-primary h6 ml-1 type-badge">
+                                <strong class="p-0" style="color:#ffe8af">
+                                    {%Imported_Total%}</strong> / {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Imported_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%Imported%}%
+                            </div>
+                        </div>
+
+                        <span class="h5 type-row">🏚 Local <span class="badge badge-primary h6 ml-1 type-badge">
+                                <strong class="p-0" style="color:#ffe8af">{%Local_Total%}</strong> /
+                                {%Total%}</span></span>
+
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Local_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%Local%}%
+                            </div>
+                        </div>
+                    </span>
+                    <span class="p-lg-0 pb-0" id="card-body">
+                        <span class="h5 type-row">Unknown <span class="badge badge-primary h6 ml-1 type-badge">
+                                <strong class="p-0" style="color:#ffe8af">{%Unknown_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Unknown_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%Unknown%}%
+                            </div>
+                        </div>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 p-0">
+            <div class="card  card-light p-0" id="card">
+                <h3 class="text-center card-header" id="byAge">By Age 👨‍👨‍👧‍👦</h3>
+                <span class="card-bodyquote pt-3 pb-0" id="card-body">
+                    <span class="p-lg-0 pb-0">
+                        <span class="h5">👶 Child (0-17) <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%Child_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Child_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%Child%}%
+                            </div>
+                        </div>
+
+                        <span class="h5">👱 Adult (18-29)<span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%Adult_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Adult_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%Adult%}%
+                            </div>
+                        </div>
+
+                        <span class="h5">👲 Middle Age I (30-39)<span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%Madult_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Madult_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%Madult%}%
+                            </div>
+                        </div>
+                    </span>
+                    <span class="p-lg-0">
+                        <span class="h5">👳 Middle Age II (40-49)<span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%MMadult_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
+                            <div class="progress-bar  p-0 w{%MMadult_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%MMadult%}%
+                            </div>
+                        </div>
+
+                        <span class="h5">🎅 Middle Age III (50-59) <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%MMMadult_Total%}</strong> /
+                                {%Total%}</span></span>
+
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%MMMadult_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%MMMadult%}%
+                            </div>
+                        </div>
+                    </span>
+
+                    <span class="p-lg-0 pb-0">
+                        <span class="h5">👴 Old Age I (60-69) <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%Old_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
+                            <div class="progress-bar  p-0 w{%Old_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%Old%}%
+                            </div>
+                        </div>
+
+                        <span class="h5">👵 Old Age II (70+) <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%OOld_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0  w{%OOld_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%OOld%}%
+                            </div>
+                        </div>
+
+                        <span class="h5">Unknown <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%Unknown_Age_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
+                            <div class="progress-bar  p-0  w{%Unknown_Age_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%Unknown_Age%}%
+                            </div>
+                        </div>
+
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6 p-0">
+            <div class="card  card-light p-0" id="card">
+                <h3 class="text-center card-header" id="byProvince">By Province 🚩</h3>
+                <span class="card-bodyquote" id="card-body" style="padding:2.75rem;">
+                    <span class="p-lg-0 pb-0">
+                        <span class="h5">Province 1<span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%p1_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
+                            <div class="progress-bar  p-0 w{%p1_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%p1%}%
+                            </div>
+                        </div>
+
+                        <span class="h5"> Province 2 <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%p2_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%p2_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%p2%}%
+                            </div>
+                        </div>
+
+
+                        <span class="h5">Province 3<span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%p3_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%p3_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%p3%}%
+                            </div>
+                        </div>
+
+
+                        <span class="h5">Province 4 <span class="badge badge-primary h6 ml-1">
+
+                                <strong class="p-0" style="color:#ffe8af">{%p4_Total%}</strong> /
+                                {%Total%}</span></span>
+
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%p4_cn%}" style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;">
+                                {%p4%}%
+                            </div>
+                        </div>
+                    </span>
+
+                    <span class="p-lg-0 pb-0">
+                        <span class="h5"> Province 5 <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%p5_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%p5_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%p5%}%
+                            </div>
+                        </div>
+
+                        <span class="h5">Province 6 <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%p6_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%p6_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%p6%}%
+                            </div>
+                        </div>
+
+                        <span class="h5"> Province 7 <span class="badge badge-primary h6 ml-1">
+                                <strong class="p-0" style="color:#ffe8af">{%p7_Total%}</strong> /
+                                {%Total%}</span></span>
+
+                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
+                            <div class="progress-bar  p-0 w{%p7_cn%}" style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;">
+                                {%p7%}%
+                            </div>
+                        </div>
+
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
     </div>
 
     <div class="container-fluid pt-0" id="container">
@@ -1213,9 +1276,12 @@
                     </tbody>
                 </table>
 
-                <h3 class="text-center card-header" id="byType"
-                    style="background-color: #f7f7f7; color: var(--primary-color)">Latest FAQS 📰</h3>
-                {%faqs_Cards%}
+
+                <div class="faqs_lists">
+                    <h3 class="text-center card-header" id="byType"
+                        style="background-color: #f7f7f7; color: var(--primary-color)">Latest FAQS 📰</h3>
+                    {%faqs_Cards%}
+                </div>
             </div>
 
             <!-- News------------------ -->
@@ -1237,17 +1303,15 @@
                         href="http://sirishtitaju.com.np" target="_blank">Sirish
                         Titaju </a>| Source : Ministry of Health and Population (MoHP)
                     <span class="m-2 p-0">
-                    <!-- hitwebcounter Code START -->
-                    <a href="https://www.hitwebcounter.com" target="_blank">
-                        <img src="https://hitwebcounter.com/counter/counter.php?page=7431879&style=0007&nbdigits=5&type=page&initCount=0" title="Web Counter" Alt="counter free"   border="0" > |
-                        <img src="https://hitwebcounter.com/counter/counter.php?page=7431872&style=0007&nbdigits=5&type=ip&initCount=0" title="Web Counter" Alt="Web counter"   border="0" >
-                    </a>                                    
-                         
-                </span>
+                        <!-- hitwebcounter Code START -->
+                        <a href="https://www.hitwebcounter.com" target="_blank">
+                            <img src="https://hitwebcounter.com/counter/counter.php?page=7431872&style=0007&nbdigits=5&type=ip&initCount=0"
+                                title="Web Counter" Alt="Web counter" border="0">
+                        </a>
+
+                    </span>
                 </footer>
             </div>
-
-
         </div>
         <script src="http://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

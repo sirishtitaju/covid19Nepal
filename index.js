@@ -1,24 +1,15 @@
 const fs = require("fs");
-const superagent = require("superagent");
-
 const request = require("request");
-
 const express = require("express");
-
 const app = express();
-
-const http = require("http");
-const url = require("url");
 
 const replaceTemplate = require("./dev-data/module");
 
-const selCountry = fs.readFileSync("./dev-data/country.txt", "utf-8");
 const tempHtml = fs.readFileSync("./template-index.html", "utf-8");
-console.log(selCountry);
-
 const tempCard = fs.readFileSync("./template-column.html", "utf-8");
 const tempNewsCard = fs.readFileSync("./template-newsCard.html", "utf-8");
 const tempFaqsCard = fs.readFileSync("./template-faqsCard.html", "utf-8");
+const tempSearchCard = fs.readFileSync("./template-search.html", "utf-8");
 // console.log(selCountry);
 // const api_url = `https://api.covid19api.com/dayone/country/${selCountry}`;
 //////////////////////////////////////////////////////////
@@ -29,7 +20,6 @@ function apiCall(reqOps) {
       if (!err && res.statusCode == 200) {
         resolve(JSON.parse(body));
       }
-
       reject(err);
     });
   });
@@ -54,7 +44,13 @@ var faqs = {
 var news = {
   url: "https://nepalcorona.info/api/v1/news",
 };
-// or with async-await
+
+var districts = {
+  url: "https://data.nepalcorona.info/api/v1/districts",
+};
+var municipals = {
+  url: "https://data.nepalcorona.info/api/v1/municipals/",
+};
 
 const server = app.get("/", async function (req, res) {
   try {
@@ -63,16 +59,16 @@ const server = app.get("/", async function (req, res) {
     let data_faqs = await apiCall(faqs);
     let data_timeline = await apiCall(timeline);
     let data_news = await apiCall(news);
+    let data_districts = await apiCall(districts);
+    let data_municipals = await apiCall(municipals);
     data_timeline.reverse();
     data_timeline.shift();
     var todayCase = data_timeline.shift();
 
 
-    console.log(todayCase);
     todayCase.totalCases = data_overall.tested_positive - 1;
     todayCase.totalRecoveries = data_overall.recovered;
     todayCase.totalDeaths = data_overall.deaths;
-    console.log(todayCase);
 
     data_timeline.unshift(todayCase);
 
@@ -483,7 +479,7 @@ const server = app.get("/", async function (req, res) {
 
 
     const newsCard = data_news.data
-      .slice(0, 9)
+      .slice(0, 10)
       .map((el) => replaceNews(tempNewsCard, el))
       .join(" ");
 
@@ -545,6 +541,162 @@ const server = app.get("/", async function (req, res) {
       .join(" ");
 
     output = output.replace("{%faqs_Cards%}", faqsCard);
+
+    ////////////////////////////////////////////////////////
+    //////////////// By District
+    const district = req.query.district; //district is the name of your input box
+
+    console.log(district);
+    let reqDistrict_ID = null;
+    let districtNotFound = false;
+
+    data_districts.map((el) => {
+      if ((el.code === district || el.title.toLowerCase() === district || el.title_ne === district || el.title_en === district)) {
+        console.log("District ID " + el.id);
+        reqDistrict_ID = el.id;
+      }
+    });
+
+    var districtsByID = {
+      url: `https://data.nepalcorona.info/api/v1/districts/${reqDistrict_ID}`,
+    };
+
+    if (reqDistrict_ID !== null) {
+
+      let data_districtsByID = await apiCall(districtsByID);
+      console.log(data_districtsByID.covid_cases.length);
+
+      let title_dis = data_districtsByID.title;
+
+      let casesByDistrict = data_districtsByID.covid_cases;
+      let totalCasesByDistrict = data_districtsByID.covid_cases.length;
+
+
+      let activeCount = 0;
+      let recovCount = 0;
+      let deathCount = 0;
+
+      let maleCount = 0;
+      let femaleCount = 0;
+
+      casesByDistrict.map((el) => {
+        if (el.currentState === "active") {
+          activeCount++;
+        }
+        if (el.currentState === "recovered") {
+          recovCount++;
+        }
+        if (el.currentState === "death") {
+          deathCount++;
+        }
+        if (el.gender === "male") {
+          maleCount++;
+        }
+        if (el.gender === "female") {
+          femaleCount++;
+        }
+      });
+
+      let searchDistrict = tempSearchCard;
+      searchDistrict = searchDistrict.replace("{%Municipal_Name%}", title_dis);
+      searchDistrict = searchDistrict.replace("{%Search-type%}", "District");
+
+      searchDistrict = searchDistrict.replace("{%MTotal_cases%}", totalCasesByDistrict);
+      searchDistrict = searchDistrict.replace("{%MActive_Cases%}", activeCount);
+      searchDistrict = searchDistrict.replace("{%MRecovered_Cases%}", recovCount);
+      searchDistrict = searchDistrict.replace("{%MDeaths_Cases%}", deathCount);
+
+      output = output.replace("{%M-Result%}", searchDistrict);
+
+
+    } else {
+      console.log("Nothing Searched in the District");
+      // output = output.replace("{%M-Result%}", `<h4><span class="text-danger p-0">${district}</span> Not Found :(</h4>`);
+    }
+
+    //////////////////////////////////////////////////////////////////
+    //////////////////// Municipality
+    const municipal = req.query.municipal;
+
+    // console.log(municipal);
+    var reqMunicipal_ID = null;
+    var municipalNotFound = false;
+
+    data_municipals.map((el) => {
+      if ((el.code === municipal || el.title.toLowerCase() === municipal || el.title_ne === municipal || el.title_en === municipal)) {
+        return reqMunicipal_ID = el.id;
+      } else if (municipal !== undefined) {
+        municipalNotFound = true;
+      }
+    });
+
+    if (municipalNotFound) {
+      console.log("Sorry, I can't Find this Municipality in the List :(");
+    }
+
+    var municipalsByID = {
+      url: `https://data.nepalcorona.info/api/v1/municipals/${reqMunicipal_ID}`,
+    };
+
+    if (reqMunicipal_ID !== null) {
+
+      let data_municipalsByID = await apiCall(municipalsByID);
+
+      let casesByMunicipal = data_municipalsByID.covid_cases;
+      let totalCasesByMunicipal = data_municipalsByID.covid_cases.length;
+
+      let title_mun = data_municipalsByID.title;
+
+      let activeCount = 0;
+      let recovCount = 0;
+      let deathCount = 0;
+
+      let maleCount = 0;
+      let femaleCount = 0;
+
+      casesByMunicipal.map((el) => {
+        if (el.currentState === "active") {
+          activeCount++;
+        }
+        if (el.currentState === "recovered") {
+          recovCount++;
+        }
+        if (el.currentState === "death") {
+          deathCount++;
+        }
+        if (el.gender === "male") {
+          maleCount++;
+        }
+        if (el.gender === "female") {
+          femaleCount++;
+        }
+      });
+
+      let searchMunicipal = tempSearchCard;
+      searchMunicipal = searchMunicipal.replace("{%Municipal_Name%}", title_mun);
+      searchMunicipal = searchMunicipal.replace("{%Search-type%}", "Municipality");
+
+      searchMunicipal = searchMunicipal.replace("{%MTotal_cases%}", totalCasesByMunicipal);
+      searchMunicipal = searchMunicipal.replace("{%MActive_Cases%}", activeCount);
+      searchMunicipal = searchMunicipal.replace("{%MRecovered_Cases%}", recovCount);
+      searchMunicipal = searchMunicipal.replace("{%MDeaths_Cases%}", deathCount);
+
+      output = output.replace("{%M-Result%}", searchMunicipal);
+
+      console.log("Data Municipality ------------------------------------------------ : \n" + data_municipalsByID);
+
+    } else {
+      output = output.replace("{%M-Result%}", "");
+      console.log("Nothing Searched in the Municipality");
+    }
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////// End of Response (GET)
     // console.log(output);
     res.end(output);
   } catch (err) {
