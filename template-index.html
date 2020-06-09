@@ -1,727 +1,751 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Corona Statistics | Nepal - Sirish Titaju</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-        integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous" />
-</head>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+      integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<body id="body">
+  <body id="body">
     <style>
-        /* rgb(247, 110, 110) #00aff0  rgb(103, 247, 103)*/
-        :root {
-            --primary-color: #ec4843;
-            --primary-color-light: rgb(247, 110, 110);
-            --secondary-color: #0275d8;
-            --bg-dark: #212529;
-            --bg-dark-light: #35373b;
-            --color-white: #fff;
-            --color-white-2: #fafafa;
-            --color-white-dark: rgb(228, 227, 227);
-            --color-green: rgb(0, 158, 0);
+      /* rgb(247, 110, 110) #00aff0  rgb(103, 247, 103)*/
+      :root {
+        --primary-color: #ec4843;
+        --primary-color-light: rgb(247, 110, 110);
+        --secondary-color: #0275d8;
+        --bg-dark: #212529;
+        --bg-dark-light: #35373b;
+        --color-white: #fff;
+        --color-white-2: #fafafa;
+        --color-white-dark: rgb(228, 227, 227);
+        --color-green: rgb(0, 158, 0);
+      }
+
+      * {
+        margin: 0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      #badge {
+        font-size: 70%;
+      }
+
+      .displayNone {
+        display: none;
+      }
+
+      html,
+      #body {
+        background-color: var(--color-white-dark);
+      }
+      #loading {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(230, 230, 230, 0.719);
+        background-image: url("https://www.animatedimages.org/data/media/839/animated-nepal-flag-image-0005.gif"); /*https://i.stack.imgur.com/MnyxU.gif*/
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .web-title {
+        margin: 0;
+        margin-bottom: 0.3rem;
+        color: var(--secondary-color);
+        background-color: var(--color-white-2);
+        padding: 0.3rem 3.8rem;
+        display: inline-block;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 5px;
+      }
+
+      #web-title {
+        font-size: 3rem !important;
+        /* text-align: center; */
+        font-weight: 500;
+      }
+
+      .web-title span {
+        color: var(--primary-color);
+      }
+
+      .web-title::after {
+        content: "- Sirish Titaju";
+        display: block;
+        background: linear-gradient(to right, #ff1810, #0072ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 0.6rem;
+        position: absolute;
+        right: 8%;
+        top: 76%;
+      }
+
+      #card {
+        border: none !important;
+        margin: 8.5px;
+        text-align: center;
+        /* background-color: var(--bg-dark); */
+      }
+
+      #card h3 {
+        font-weight: light;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+      }
+
+      #card .h5 {
+        color: var(--bg-dark-light);
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+
+      #card .h6 {
+        font-size: 80%;
+        font-weight: 500;
+        text-align: center !important;
+        display: inline-block;
+      }
+
+      #cardOverall .h6 {
+        font-size: 80%;
+        font-weight: 500;
+      }
+
+      #table {
+        text-align: left !important;
+        border-radius: 0 0 5px 5px;
+      }
+
+      #table thead tr th {
+        font-size: 1.5rem;
+        font-weight: 500 !important;
+      }
+
+      #table tbody {
+        font-size: 1.2rem;
+        font-weight: light;
+      }
+
+      #myChart {
+        width: 50%;
+      }
+
+      .w0 {
+        width: 0.5%;
+      }
+
+      .w1 {
+        width: 1%;
+      }
+
+      .w2 {
+        width: 2%;
+      }
+
+      .w3 {
+        width: 3%;
+      }
+
+      .w4 {
+        width: 4%;
+      }
+
+      .w5 {
+        width: 5%;
+      }
+
+      .w6 {
+        width: 6%;
+      }
+
+      .w7 {
+        width: 7%;
+      }
+
+      .w8 {
+        width: 8%;
+      }
+
+      .w9 {
+        width: 9%;
+      }
+
+      .w10 {
+        width: 10%;
+      }
+
+      .w11 {
+        width: 11%;
+      }
+
+      .w12 {
+        width: 12%;
+      }
+
+      .w13 {
+        width: 13%;
+      }
+
+      .w14 {
+        width: 14%;
+      }
+
+      .w15 {
+        width: 15%;
+      }
+
+      .w16 {
+        width: 16%;
+      }
+
+      .w17 {
+        width: 17%;
+      }
+
+      .w18 {
+        width: 18%;
+      }
+
+      .w19 {
+        width: 19%;
+      }
+
+      .w20 {
+        width: 20%;
+      }
+
+      .w21 {
+        width: 21%;
+      }
+
+      .w22 {
+        width: 22%;
+      }
+
+      .w23 {
+        width: 23%;
+      }
+
+      .w24 {
+        width: 24%;
+      }
+
+      .w25 {
+        width: 25%;
+      }
+
+      .w26 {
+        width: 26%;
+      }
+
+      .w27 {
+        width: 27%;
+      }
+
+      .w28 {
+        width: 28%;
+      }
+
+      .w29 {
+        width: 29%;
+      }
+
+      .w30 {
+        width: 30%;
+      }
+
+      .w31 {
+        width: 31%;
+      }
+
+      .w32 {
+        width: 32%;
+      }
+
+      .w33 {
+        width: 33%;
+      }
+
+      .w34 {
+        width: 34%;
+      }
+
+      .w35 {
+        width: 35%;
+      }
+
+      .w36 {
+        width: 36%;
+      }
+
+      .w37 {
+        width: 37%;
+      }
+
+      .w38 {
+        width: 38%;
+      }
+
+      .w39 {
+        width: 39%;
+      }
+
+      .w40 {
+        width: 40%;
+      }
+
+      .w41 {
+        width: 41%;
+      }
+
+      .w42 {
+        width: 42%;
+      }
+
+      .w43 {
+        width: 43%;
+      }
+
+      .w44 {
+        width: 44%;
+      }
+
+      .w45 {
+        width: 45%;
+      }
+
+      .w46 {
+        width: 46%;
+      }
+
+      .w47 {
+        width: 47%;
+      }
+
+      .w48 {
+        width: 48%;
+      }
+
+      .w49 {
+        width: 49%;
+      }
+
+      .w50 {
+        width: 50%;
+      }
+
+      .w51 {
+        width: 51%;
+      }
+
+      .w52 {
+        width: 52%;
+      }
+
+      .w53 {
+        width: 53%;
+      }
+
+      .w54 {
+        width: 54%;
+      }
+
+      .w55 {
+        width: 55%;
+      }
+
+      .w56 {
+        width: 56%;
+      }
+
+      .w57 {
+        width: 57%;
+      }
+
+      .w58 {
+        width: 58%;
+      }
+
+      .w59 {
+        width: 59%;
+      }
+
+      .w60 {
+        width: 60%;
+      }
+
+      .w61 {
+        width: 61%;
+      }
+
+      .w62 {
+        width: 62%;
+      }
+
+      .w63 {
+        width: 63%;
+      }
+
+      .w64 {
+        width: 64%;
+      }
+
+      .w65 {
+        width: 65%;
+      }
+
+      .w66 {
+        width: 66%;
+      }
+
+      .w67 {
+        width: 67%;
+      }
+
+      .w68 {
+        width: 68%;
+      }
+
+      .w69 {
+        width: 69%;
+      }
+
+      .w70 {
+        width: 70%;
+      }
+
+      .w71 {
+        width: 71%;
+      }
+
+      .w72 {
+        width: 72%;
+      }
+
+      .w73 {
+        width: 73%;
+      }
+
+      .w74 {
+        width: 74%;
+      }
+
+      .w75 {
+        width: 75%;
+      }
+
+      .w76 {
+        width: 76%;
+      }
+
+      .w77 {
+        width: 77%;
+      }
+
+      .w78 {
+        width: 78%;
+      }
+
+      .w79 {
+        width: 79%;
+      }
+
+      .w80 {
+        width: 80%;
+      }
+
+      .w81 {
+        width: 81%;
+      }
+
+      .w82 {
+        width: 82%;
+      }
+
+      .w83 {
+        width: 83%;
+      }
+
+      .w84 {
+        width: 84%;
+      }
+
+      .w85 {
+        width: 85%;
+      }
+
+      .w86 {
+        width: 86%;
+      }
+
+      .w87 {
+        width: 87%;
+      }
+
+      .w88 {
+        width: 88%;
+      }
+
+      .w89 {
+        width: 89%;
+      }
+
+      .w90 {
+        width: 90%;
+      }
+
+      .w91 {
+        width: 91%;
+      }
+
+      .w92 {
+        width: 92%;
+      }
+
+      .w93 {
+        width: 93%;
+      }
+
+      .w94 {
+        width: 94%;
+      }
+
+      .w95 {
+        width: 95%;
+      }
+
+      .w96 {
+        width: 96%;
+      }
+
+      .w97 {
+        width: 97%;
+      }
+
+      .w98 {
+        width: 98%;
+      }
+
+      .w99 {
+        width: 99%;
+      }
+
+      .w100 {
+        width: 100%;
+      }
+
+      .w101 {
+        width: 101%;
+      }
+
+      .search-body {
+        font-size: 1.2rem;
+      }
+
+      .search-body input {
+        border-radius: 4px;
+        border-width: 1px;
+      }
+
+      /* ------------------------------------------------------------ */
+      /* Media Queries -------------------------------------------- */
+      @media (max-width: 3000px) {
+        .web-title::after {
+          font-size: 0.8rem;
+          right: 5%;
         }
 
-        * {
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 90.5%;
+        }
+      }
+
+      @media (max-width: 1255px) {
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 85.5%;
+        }
+      }
+
+      @media (max-width: 1050px) {
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 80.5%;
         }
 
-        #badge {
-            font-size: 70%;
+        #card .gender-row,
+        #card .type-row {
+          display: block !important;
+          padding: 0px !important;
         }
 
-        .displayNone {
-            display: none;
+        #card .gender-badge,
+        #card .type-badge {
+          display: inline-block !important;
+        }
+      }
+
+      @media (max-width: 905px) {
+        .web-title::after {
+          font-size: 0.5rem;
+          right: 8%;
         }
 
-        html,
-        #body {
-            background-color: var(--color-white-dark);
-        }
-
-        .web-title {
-            margin: 0;
-            margin-bottom: .3rem;
-            color: var(--secondary-color);
-            background-color: var(--color-white-2);
-            padding: .3rem 3.8rem;
-            display: inline-block;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-
+        body,
+        html {
+          padding: 0 !important;
         }
 
         #web-title {
-            font-size: 3rem !important;
-            /* text-align: center; */
-            font-weight: 500;
-        }
-
-        .web-title span {
-            color: var(--primary-color);
-        }
-
-        .web-title::after {
-            content: "- Sirish Titaju";
-            display: block;
-            background: linear-gradient(to right, #ff1810, #0072ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 0.6rem;
-            position: absolute;
-            right: 8%;
-            top: 76%;
-        }
-
-
-
-        #card {
-            border: none !important;
-            margin: 8.5px;
-            text-align: center;
-            /* background-color: var(--bg-dark); */
-        }
-
-        #card h3 {
-            font-weight: light;
-            font-size: 1.5rem;
-            color: var(--primary-color);
+          font-size: 1.5rem !important;
         }
 
         #card .h5 {
-            color: var(--bg-dark-light);
-            display: block;
-            margin: 0;
-            padding: 0;
+          display: block !important;
+          padding: 0px !important;
         }
 
         #card .h6 {
-            font-size: 80%;
-            font-weight: 500;
-            text-align: center !important;
-            display: inline-block;
+          display: inline-block !important;
         }
 
-        #cardOverall .h6 {
-            font-size: 80%;
-            font-weight: 500;
+        .overall-rest {
+          padding: 0;
         }
 
-        #table {
-            text-align: left !important;
-            border-radius: 0 0 5px 5px;
+        .overall-rest .h5 {
+          display: block !important;
+          margin: 0;
+          padding: 7px !important;
         }
+      }
 
-        #table thead tr th {
-            font-size: 1.5rem;
-            font-weight: 500 !important;
+      @media (max-width: 767px) {
+        #col-news {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
         }
 
-        #table tbody {
-            font-size: 1.2rem;
-            font-weight: light;
-
-        }
-
-        #myChart {
-            width: 50%;
-        }
-
-        .w0 {
-            width: 0.5%;
-        }
-
-        .w1 {
-            width: 1%;
-        }
-
-        .w2 {
-            width: 2%;
-        }
-
-        .w3 {
-            width: 3%;
-        }
-
-        .w4 {
-            width: 4%;
-        }
-
-        .w5 {
-            width: 5%;
-        }
-
-        .w6 {
-            width: 6%;
-        }
-
-        .w7 {
-            width: 7%;
-        }
-
-        .w8 {
-            width: 8%;
-        }
-
-        .w9 {
-            width: 9%;
-        }
-
-        .w10 {
-            width: 10%;
-        }
-
-        .w11 {
-            width: 11%;
-        }
-
-        .w12 {
-            width: 12%;
-        }
-
-        .w13 {
-            width: 13%;
-        }
-
-        .w14 {
-            width: 14%;
-        }
-
-        .w15 {
-            width: 15%;
-        }
-
-        .w16 {
-            width: 16%;
-        }
-
-        .w17 {
-            width: 17%;
-        }
-
-        .w18 {
-            width: 18%;
-        }
-
-        .w19 {
-            width: 19%;
-        }
-
-        .w20 {
-            width: 20%;
-        }
-
-        .w21 {
-            width: 21%;
-        }
-
-        .w22 {
-            width: 22%;
-        }
-
-        .w23 {
-            width: 23%;
-        }
-
-        .w24 {
-            width: 24%;
-        }
-
-        .w25 {
-            width: 25%;
-        }
-
-        .w26 {
-            width: 26%;
-        }
-
-        .w27 {
-            width: 27%;
-        }
-
-        .w28 {
-            width: 28%;
-        }
-
-        .w29 {
-            width: 29%;
-        }
-
-        .w30 {
-            width: 30%;
-        }
-
-        .w31 {
-            width: 31%;
-        }
-
-        .w32 {
-            width: 32%;
-        }
-
-        .w33 {
-            width: 33%;
-        }
-
-        .w34 {
-            width: 34%;
-        }
-
-        .w35 {
-            width: 35%;
-        }
-
-        .w36 {
-            width: 36%;
-        }
-
-        .w37 {
-            width: 37%;
-        }
-
-        .w38 {
-            width: 38%;
-        }
-
-        .w39 {
-            width: 39%;
-        }
-
-        .w40 {
-            width: 40%;
-        }
-
-        .w41 {
-            width: 41%;
-        }
-
-        .w42 {
-            width: 42%;
-        }
-
-        .w43 {
-            width: 43%;
-        }
-
-        .w44 {
-            width: 44%;
-        }
-
-        .w45 {
-            width: 45%;
-        }
-
-        .w46 {
-            width: 46%;
-        }
-
-        .w47 {
-            width: 47%;
-        }
-
-        .w48 {
-            width: 48%;
-        }
-
-        .w49 {
-            width: 49%;
-        }
-
-        .w50 {
-            width: 50%;
-        }
-
-        .w51 {
-            width: 51%;
-        }
-
-        .w52 {
-            width: 52%;
-        }
-
-        .w53 {
-            width: 53%;
-        }
-
-        .w54 {
-            width: 54%;
-        }
-
-        .w55 {
-            width: 55%;
-        }
-
-        .w56 {
-            width: 56%;
-        }
-
-        .w57 {
-            width: 57%;
-        }
-
-        .w58 {
-            width: 58%;
-        }
-
-        .w59 {
-            width: 59%;
-        }
-
-        .w60 {
-            width: 60%;
-        }
-
-        .w61 {
-            width: 61%;
-        }
-
-        .w62 {
-            width: 62%;
-        }
-
-        .w63 {
-            width: 63%;
-        }
-
-        .w64 {
-            width: 64%;
-        }
-
-        .w65 {
-            width: 65%;
-        }
-
-        .w66 {
-            width: 66%;
-        }
-
-        .w67 {
-            width: 67%;
-        }
-
-        .w68 {
-            width: 68%;
-        }
-
-        .w69 {
-            width: 69%;
-        }
-
-        .w70 {
-            width: 70%;
-        }
-
-        .w71 {
-            width: 71%;
-        }
-
-        .w72 {
-            width: 72%;
-        }
-
-        .w73 {
-            width: 73%;
-        }
-
-        .w74 {
-            width: 74%;
-        }
-
-        .w75 {
-            width: 75%;
-        }
-
-        .w76 {
-            width: 76%;
-        }
-
-        .w77 {
-            width: 77%;
-        }
-
-        .w78 {
-            width: 78%;
-        }
-
-        .w79 {
-            width: 79%;
-        }
-
-        .w80 {
-            width: 80%;
-        }
-
-        .w81 {
-            width: 81%;
-        }
-
-        .w82 {
-            width: 82%;
-        }
-
-        .w83 {
-            width: 83%;
-        }
-
-        .w84 {
-            width: 84%;
-        }
-
-        .w85 {
-            width: 85%;
-        }
-
-        .w86 {
-            width: 86%;
-        }
-
-        .w87 {
-            width: 87%;
-        }
-
-        .w88 {
-            width: 88%;
-        }
-
-        .w89 {
-            width: 89%;
-        }
-
-        .w90 {
-            width: 90%;
-        }
-
-        .w91 {
-            width: 91%;
-        }
-
-        .w92 {
-            width: 92%;
-        }
-
-        .w93 {
-            width: 93%;
-        }
-
-        .w94 {
-            width: 94%;
+        .faqs_lists {
+          display: none;
         }
+      }
 
-        .w95 {
-            width: 95%;
+      @media (max-width: 443px) {
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 78.5%;
         }
 
-        .w96 {
-            width: 96%;
+        #container {
+          padding: 0 8px;
         }
 
-        .w97 {
-            width: 97%;
+        #web-title {
+          font-size: 1.6rem !important;
         }
 
-        .w98 {
-            width: 98%;
+        #card .h5 {
+          display: block !important;
+          padding: 0px !important;
         }
 
-        .w99 {
-            width: 99%;
+        #card .h6 {
+          display: inline-block !important;
         }
+      }
 
-        .w100 {
-            width: 100%;
+      @media (max-width: 400px) {
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 68.5%;
         }
 
-        .w101 {
-            width: 101%;
+        #web-title {
+          font-size: 1.5rem !important;
         }
 
         .search-body {
-            font-size: 1.2rem;
+          font-size: 1.5rem;
         }
+      }
 
-        .search-body input {
-            border-radius: 4px;
-            border-width: 1px;
+      @media (max-width: 360.5px) {
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 55.5%;
         }
+      }
 
-        /* ------------------------------------------------------------ */
-        /* Media Queries -------------------------------------------- */
-        @media (max-width: 3000px) {
-            .web-title::after {
-                font-size: 0.8rem;
-                right: 5%;
-            }
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 90.5%;
-            }
+      @media (max-width: 360.5px) {
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 45%;
         }
+      }
 
-        @media (max-width: 1255px) {
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 85.5%;
-            }
-
+      @media (max-width: 310.5px) {
+        body,
+        html {
+          padding: 0 !important;
+          font-size: 40%;
         }
-
-        @media (max-width: 1050px) {
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 80.5%;
-            }
-
-            #card .gender-row,
-            #card .type-row {
-                display: block !important;
-                padding: 0px !important;
-            }
-
-            #card .gender-badge,
-            #card .type-badge {
-                display: inline-block !important;
-            }
-
-        }
-
-        @media (max-width: 905px) {
-
-            .web-title::after {
-                font-size: 0.5rem;
-                right: 8%;
-            }
-
-            body,
-            html {
-                padding: 0 !important;
-            }
-
-            #web-title {
-                font-size: 1.5rem !important;
-            }
-
-            #card .h5 {
-                display: block !important;
-                padding: 0px !important;
-            }
-
-            #card .h6 {
-                display: inline-block !important;
-
-            }
-
-            .overall-rest {
-                padding: 0;
-            }
-
-            .overall-rest .h5 {
-                display: block !important;
-                margin: 0;
-                padding: 7px !important;
-            }
-
-        }
-
-        @media (max-width: 767px) {
-            #col-news {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-
-            .faqs_lists {
-                display: none;
-            }
-        }
-
-
-        @media (max-width: 443px) {
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 78.5%;
-            }
-
-            #container {
-                padding: 0 8px;
-            }
-
-            #web-title {
-                font-size: 1.6rem !important;
-            }
-
-            #card .h5 {
-                display: block !important;
-                padding: 0px !important;
-            }
-
-            #card .h6 {
-                display: inline-block !important;
-            }
-
-        }
-
-        @media (max-width: 400px) {
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 68.5%;
-            }
-
-            #web-title {
-                font-size: 1.5rem !important;
-            }
-
-            .search-body {
-                font-size: 1.5rem;
-            }
-
-        }
-
-        @media (max-width: 360.5px) {
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 55.5%;
-            }
-        }
-
-        @media (max-width: 360.5px) {
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 45%;
-            }
-        }
-
-
-        @media (max-width: 310.5px) {
-
-            body,
-            html {
-                padding: 0 !important;
-                font-size: 40%;
-            }
-        }
+      }
     </style>
-    <p class="web-title" id="web-title">
+    <div id="loading"></div>
+
+    <script>
+      function onReady(callback) {
+        var intervalId = window.setInterval(function() {
+          if (document.getElementsByTagName("body")[0] !== undefined) {
+            window.clearInterval(intervalId);
+            callback.call(this);
+          }
+        }, 1000);
+      }
+
+      function setVisible(selector, visible) {
+        document.querySelector(selector).style.display = visible
+          ? "block"
+          : "none";
+      }
+
+      onReady(function() {
+        setVisible(".page", true);
+        setVisible("#loading", false);
+      });
+    </script>
+    <div class="page p-0 m-0">
+      <p class="web-title" id="web-title">
         <!-- <svg class="p-0 m-0 d-inline svg-left">
             <line x1="40" y1="90" x2="40" y2="0" />
             <circle cx="40" cy="90" r="7" />
@@ -730,573 +754,908 @@
         </svg> -->
         <!-- <img src="tenor.gif" alt="Corona"> -->
         <span class="p-0"> COVID-19 |</span> Statistics Nepal
-        <!-- <img src="ani1.gif" alt="Flag"> -->
-    </p>
+      </p>
 
-    <div class="container-fluid" id="container">
+      <div class="container-fluid" id="container">
         <div class="row px-md-0">
-            <div class="col-md-12 px-md-0 pt-0" style="display:flex; justify-content:space-around;">
-
-                <div class="card  card-light p-0 m-0" id="cardOverall">
-                    <h3 class="text-center text-danger card-header" id="byGender">
-                        Search 🔍
-                    </h3>
-                    <span class="card-bodyquote text-center m-0 py-0 px-xs-0 search-body">
-                        <form class="p-lg-4 p-md-3 p-sm-3 p-xs-0" action="/" method="GET" style="display:inline-block;">
-                            <input style="padding:8px;" type="text" name="district" placeholder="Search (Eg:Kathmandu)"
-                                required />
-                            <br />
-                            <input class="btn btn-lg btn-primary mt-3" type="submit" value="By District"
-                                onclick="show_Dresult()" />
-                        </form>
-                        <form class="p-lg-4 p-md-3 p-sm-3 p-xs-0" action="/" method="GET" style="display:inline-block;">
-                            <input style="padding:8px;" type="text" name="municipal"
-                                placeholder="Search (Eg:Suryabinayak)" required />
-                            <br />
-                            <input class="btn btn-lg btn-danger mt-3" type="submit" value="By Municipality"
-                                onclick="show_Mresult()" />
-                        </form>
-                        {%M-Result%}
-                    </span>
-                </div>
+          <div
+            class="col-md-12 px-md-0 pt-0"
+            style="display:flex; justify-content:space-around;"
+          >
+            <div class="card  card-light p-0 m-0" id="cardOverall">
+              <h3 class="text-center text-danger card-header" id="byGender">
+                Search 🔍
+              </h3>
+              <span
+                class="card-bodyquote text-center m-0 py-0 px-xs-0 search-body"
+              >
+                <form
+                  class="p-lg-4 p-md-3 p-sm-3 p-xs-0"
+                  action="/"
+                  method="GET"
+                  style="display:inline-block;"
+                >
+                  <input
+                    style="padding:8px;"
+                    type="text"
+                    name="district"
+                    placeholder="Search (Eg:Kathmandu)"
+                    required
+                  />
+                  <br />
+                  <input
+                    class="btn btn-lg btn-primary mt-3"
+                    type="submit"
+                    value="By District"
+                    onclick="show_Dresult()"
+                  />
+                </form>
+                <form
+                  class="p-lg-4 p-md-3 p-sm-3 p-xs-0"
+                  action="/"
+                  method="GET"
+                  style="display:inline-block;"
+                >
+                  <input
+                    style="padding:8px;"
+                    type="text"
+                    name="municipal"
+                    placeholder="Search (Eg:Suryabinayak)"
+                    required
+                  />
+                  <br />
+                  <input
+                    class="btn btn-lg btn-danger mt-3"
+                    type="submit"
+                    value="By Municipality"
+                    onclick="show_Mresult()"
+                  />
+                </form>
+                {%M-Result%}
+              </span>
             </div>
+          </div>
         </div>
         <div class="row py-0">
-            <div class="col-md-12  py-md-0 mx-md-0">
-                <div class="card  card-light p-0 m-0" id="cardOverall">
-                    <h3 class="text-center text-danger card-header" id="byGender">
-                        By Overall 📈
-                    </h3>
-                    <span class="card-bodyquote text-center pt-3 pb-0">
-                        <span class="p-lg-0 pb-0" id="card-body">
-                            <span class="h5 gender-row"> 🤒 Tested Positive <span
-                                    class="badge badge-primary h6 ml-1 gender-badge">
-                                    <strong class="p-0" style="color:#ffe8af">
-                                        {%Total_Tested_Positive%}</strong> / {%Total_Tested%}</span></span>
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{Tested_Positive_cn%}" style="
+          <div class="col-md-12  py-md-0 mx-md-0">
+            <div class="card  card-light p-0 m-0" id="cardOverall">
+              <h3 class="text-center text-danger card-header" id="byGender">
+                By Overall 📈
+              </h3>
+              <span class="card-bodyquote text-center pt-3 pb-0">
+                <span class="p-lg-0 pb-0" id="card-body">
+                  <span class="h5 gender-row">
+                    🤒 Tested Positive
+                    <span class="badge badge-primary h6 ml-1 gender-badge">
+                      <strong class="p-0" style="color:#ffe8af">
+                        {%Total_Tested_Positive%}</strong
+                      >
+                      / {%Total_Tested%}</span
+                    ></span
+                  >
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{Tested_Positive_cn%}"
+                      style="
                                         color:black;
                                         background-color:#ffe8af;
                                         position: absolute;
                                         top: 0;
-                                        left: 0;">
-                                    {%Tested_Positive%}%
-                                </div>
-                            </div>
+                                        left: 0;"
+                    >
+                      {%Tested_Positive%}%
+                    </div>
+                  </div>
 
-                            <span class="h5 gender-row"> 😊 Total Recovered <span
-                                    class="badge badge-primary h6 ml-1 gender-badge">
-                                    <strong class="p-0" style="color:#ffe8af">
-                                        {%Total_Tested_Recovered%}</strong> /
-                                    {%Total_Tested_Positive%}</span></span>
+                  <span class="h5 gender-row">
+                    😊 Total Recovered
+                    <span class="badge badge-primary h6 ml-1 gender-badge">
+                      <strong class="p-0" style="color:#ffe8af">
+                        {%Total_Tested_Recovered%}</strong
+                      >
+                      / {%Total_Tested_Positive%}</span
+                    ></span
+                  >
 
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Tested_Recovered_cn%}" style="
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Tested_Recovered_cn%}"
+                      style="
                                         color:black;
                                         background-color:#ffe8af;
                                         position: absolute;
                                         top: 0;
-                                        left: 0;">
-                                    {%Tested_Recovered%}%
-
-                                </div>
-                            </div>
-
-                        </span>
-
-                        <span class="p-lg-0 pb-0" id="card-body">
-                            <span class="h5 gender-row"> 😭 Total Deaths <span
-                                    class="badge badge-primary h6 ml-1 gender-badge">
-                                    <strong class="p-0" style="color:#ffe8af">
-                                        {%Total_Tested_Deaths%}</strong> / {%Total_Tested_Positive%}</span></span>
-                            <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                                <div class="progress-bar  p-0 w{%Tested_Deaths_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                    {%Tested_Deaths%}%
-                                </div>
-                            </div>
-                        </span>
-                        <p class="overall-rest">
-                            <span class="p-lg-0 pb-0" id="card-body">
-                                <span class="h5 gender-row">🌡 Total Tested <span
-                                        class="badge badge-primary h6 ml-1 gender-badge">
-
-                                        {%Total_Tested%}</span></span>
-
-                                <span class="h5 gender-row">🛏 In Quarantined <span
-                                        class="badge badge-primary h6 ml-1 gender-badge">
-
-                                        {%Total_In_Quarantined%}</span></span>
-
-
-                                <span class="h5 gender-row">🔒 In Isolation <span
-                                        class="badge badge-primary h6 ml-1 gender-badge">
-
-                                        {%Total_In_Isolation%}</span></span>
-                            </span>
-
-                            <span class="p-lg-0 pb-0" id="card-body">
-                                <span class="h5 gender-row"> 🚑 Tested RDT <span
-                                        class="badge badge-primary h6 ml-1 gender-badge">
-
-                                        {%Total_Tested_RDT%}</span></span>
-                            </span>
-                        </p>
-
-
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-6  p-0">
-            <div class="card  card-light p-0" id="card">
-                <h3 class="text-center card-header" id="byGender">By Gender 👫</h3>
-                <span class="card-bodyquote text-center pt-3 pb-0">
-                    <span class="p-lg-0 pb-0" id="card-body">
-                        <span class="h5 gender-row">👦 Male <span class="badge badge-primary h6 ml-1 gender-badge">
-                                <strong class="p-0" style="color:#ffe8af">
-                                    {%Total_Male%}</strong> / {%Total%}</span></span>
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Male_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%Male%}%
-                            </div>
-                        </div>
-
-                        <span class="h5 gender-row">👧 Female <span class="badge badge-primary h6 ml-1 gender-badge">
-                                <strong class="p-0" style="color:#ffe8af">
-                                    {%Total_Female%}</strong> / {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Female_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%Female%}%
-
-                            </div>
-                        </div>
-
-                    </span>
-                    <span class="p-lg-0 pb-0" id="card-body">
-                        <span class="h5 gender-row">Unknown <span class="badge badge-primary h6 ml-1 gender-badge">
-                                <strong class="p-0" style="color:#ffe8af">
-                                    {%Total_Agender%}</strong> / {%Total%}</span></span>
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Agender_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%Agender%}%
-                            </div>
-                        </div>
-                    </span>
+                                        left: 0;"
+                    >
+                      {%Tested_Recovered%}%
+                    </div>
+                  </div>
                 </span>
-            </div>
-        </div>
 
-        <div class="col-md-6 p-0">
-            <div class="card  card-light p-0" id="card">
-                <h3 class="text-center card-header" id="byType">By Type 🖖</h3>
-                <span class="card-bodyquote text-center  pt-3 pb-0 ">
-                    <span class="p-lg-0 pb-0" id="card-body">
-                        <span class="h5 type-row">✈️ Imported <span class="badge badge-primary h6 ml-1 type-badge">
-                                <strong class="p-0" style="color:#ffe8af">
-                                    {%Imported_Total%}</strong> / {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Imported_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%Imported%}%
-                            </div>
-                        </div>
-
-                        <span class="h5 type-row">🏚 Local <span class="badge badge-primary h6 ml-1 type-badge">
-                                <strong class="p-0" style="color:#ffe8af">{%Local_Total%}</strong> /
-                                {%Total%}</span></span>
-
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Local_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%Local%}%
-                            </div>
-                        </div>
-                    </span>
-                    <span class="p-lg-0 pb-0" id="card-body">
-                        <span class="h5 type-row">Unknown <span class="badge badge-primary h6 ml-1 type-badge">
-                                <strong class="p-0" style="color:#ffe8af">{%Unknown_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Unknown_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%Unknown%}%
-                            </div>
-                        </div>
-                    </span>
+                <span class="p-lg-0 pb-0" id="card-body">
+                  <span class="h5 gender-row">
+                    😭 Total Deaths
+                    <span class="badge badge-primary h6 ml-1 gender-badge">
+                      <strong class="p-0" style="color:#ffe8af">
+                        {%Total_Tested_Deaths%}</strong
+                      >
+                      / {%Total_Tested_Positive%}</span
+                    ></span
+                  >
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Tested_Deaths_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%Tested_Deaths%}%
+                    </div>
+                  </div>
                 </span>
+                <p class="overall-rest">
+                  <span class="p-lg-0 pb-0" id="card-body">
+                    <span class="h5 gender-row"
+                      >🌡 Total Tested
+                      <span class="badge badge-primary h6 ml-1 gender-badge">
+                        {%Total_Tested%}</span
+                      ></span
+                    >
+
+                    <span class="h5 gender-row"
+                      >🛏 In Quarantined
+                      <span class="badge badge-primary h6 ml-1 gender-badge">
+                        {%Total_In_Quarantined%}</span
+                      ></span
+                    >
+
+                    <span class="h5 gender-row"
+                      >🔒 In Isolation
+                      <span class="badge badge-primary h6 ml-1 gender-badge">
+                        {%Total_In_Isolation%}</span
+                      ></span
+                    >
+                  </span>
+
+                  <span class="p-lg-0 pb-0" id="card-body">
+                    <span class="h5 gender-row">
+                      🚑 Tested RDT
+                      <span class="badge badge-primary h6 ml-1 gender-badge">
+                        {%Total_Tested_RDT%}</span
+                      ></span
+                    >
+                  </span>
+                </p>
+              </span>
             </div>
+          </div>
         </div>
+      </div>
 
-
-        <div class="col-md-6 p-0">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6  p-0">
             <div class="card  card-light p-0" id="card">
-                <h3 class="text-center card-header" id="byAge">By Age 👨‍👨‍👧‍👦</h3>
-                <span class="card-bodyquote pt-3 pb-0" id="card-body">
-                    <span class="p-lg-0 pb-0">
-                        <span class="h5">👶 Child (0-17) <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%Child_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Child_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%Child%}%
-                            </div>
-                        </div>
-
-                        <span class="h5">👱 Adult (18-29)<span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%Adult_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Adult_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%Adult%}%
-                            </div>
-                        </div>
-
-                        <span class="h5">👲 Middle Age I (30-39)<span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%Madult_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Madult_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%Madult%}%
-                            </div>
-                        </div>
-                    </span>
-                    <span class="p-lg-0">
-                        <span class="h5">👳 Middle Age II (40-49)<span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%MMadult_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                            <div class="progress-bar  p-0 w{%MMadult_cn%}" style="
+              <h3 class="text-center card-header" id="byGender">
+                By Gender 👫
+              </h3>
+              <span class="card-bodyquote text-center pt-3 pb-0">
+                <span class="p-lg-0 pb-0" id="card-body">
+                  <span class="h5 gender-row"
+                    >👦 Male
+                    <span class="badge badge-primary h6 ml-1 gender-badge">
+                      <strong class="p-0" style="color:#ffe8af">
+                        {%Total_Male%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Male_cn%}"
+                      style="
                                         color:black;
                                         background-color:#ffe8af;
                                         position: absolute;
                                         top: 0;
-                                        left: 0;">
-                                {%MMadult%}%
-                            </div>
-                        </div>
+                                        left: 0;"
+                    >
+                      {%Male%}%
+                    </div>
+                  </div>
 
-                        <span class="h5">🎅 Middle Age III (50-59) <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%MMMadult_Total%}</strong> /
-                                {%Total%}</span></span>
+                  <span class="h5 gender-row"
+                    >👧 Female
+                    <span class="badge badge-primary h6 ml-1 gender-badge">
+                      <strong class="p-0" style="color:#ffe8af">
+                        {%Total_Female%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
 
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%MMMadult_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%MMMadult%}%
-                            </div>
-                        </div>
-                    </span>
-
-                    <span class="p-lg-0 pb-0">
-                        <span class="h5">👴 Old Age I (60-69) <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%Old_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                            <div class="progress-bar  p-0 w{%Old_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%Old%}%
-                            </div>
-                        </div>
-
-                        <span class="h5">👵 Old Age II (70+) <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%OOld_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0  w{%OOld_cn%}" style="
-                                color:black;
-                                background-color:#ffe8af;
-                                position: absolute;
-                                top: 0;
-                                left: 0;">
-                                {%OOld%}%
-                            </div>
-                        </div>
-
-                        <span class="h5">Unknown <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%Unknown_Age_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                            <div class="progress-bar  p-0  w{%Unknown_Age_cn%}" style="
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Female_cn%}"
+                      style="
                                         color:black;
                                         background-color:#ffe8af;
                                         position: absolute;
                                         top: 0;
-                                        left: 0;">
-                                {%Unknown_Age%}%
-                            </div>
-                        </div>
-
-                    </span>
+                                        left: 0;"
+                    >
+                      {%Female%}%
+                    </div>
+                  </div>
                 </span>
+                <span class="p-lg-0 pb-0" id="card-body">
+                  <span class="h5 gender-row"
+                    >Unknown
+                    <span class="badge badge-primary h6 ml-1 gender-badge">
+                      <strong class="p-0" style="color:#ffe8af">
+                        {%Total_Agender%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Agender_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%Agender%}%
+                    </div>
+                  </div>
+                </span>
+              </span>
             </div>
-        </div>
-        <div class="col-md-6 p-0">
+          </div>
+
+          <div class="col-md-6 p-0">
             <div class="card  card-light p-0" id="card">
-                <h3 class="text-center card-header" id="byProvince">By Province 🚩</h3>
-                <span class="card-bodyquote" id="card-body" style="padding:2.75rem;">
-                    <span class="p-lg-0 pb-0">
-                        <span class="h5">Province 1<span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%p1_Total%}</strong> /
-                                {%Total%}</span></span>
+              <h3 class="text-center card-header" id="byType">By Type 🖖</h3>
+              <span class="card-bodyquote text-center  pt-3 pb-0 ">
+                <span class="p-lg-0 pb-0" id="card-body">
+                  <span class="h5 type-row"
+                    >✈️ Imported
+                    <span class="badge badge-primary h6 ml-1 type-badge">
+                      <strong class="p-0" style="color:#ffe8af">
+                        {%Imported_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
 
-                        <div class="progress mb-4 p-0 py-2 " style="position:relative;">
-                            <div class="progress-bar  p-0 w{%p1_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%p1%}%
-                            </div>
-                        </div>
-
-                        <span class="h5"> Province 2 <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%p2_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%p2_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%p2%}%
-                            </div>
-                        </div>
-
-
-                        <span class="h5">Province 3<span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%p3_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%p3_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%p3%}%
-                            </div>
-                        </div>
-
-
-                        <span class="h5">Province 4 <span class="badge badge-primary h6 ml-1">
-
-                                <strong class="p-0" style="color:#ffe8af">{%p4_Total%}</strong> /
-                                {%Total%}</span></span>
-
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%p4_cn%}" style="
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Imported_cn%}"
+                      style="
                                 color:black;
                                 background-color:#ffe8af;
                                 position: absolute;
                                 top: 0;
-                                left: 0;">
-                                {%p4%}%
-                            </div>
-                        </div>
-                    </span>
+                                left: 0;"
+                    >
+                      {%Imported%}%
+                    </div>
+                  </div>
 
-                    <span class="p-lg-0 pb-0">
-                        <span class="h5"> Province 5 <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%p5_Total%}</strong> /
-                                {%Total%}</span></span>
+                  <span class="h5 type-row"
+                    >🏚 Local
+                    <span class="badge badge-primary h6 ml-1 type-badge">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%Local_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
 
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%p5_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%p5%}%
-                            </div>
-                        </div>
-
-                        <span class="h5">Province 6 <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%p6_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%p6_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%p6%}%
-                            </div>
-                        </div>
-
-                        <span class="h5"> Province 7 <span class="badge badge-primary h6 ml-1">
-                                <strong class="p-0" style="color:#ffe8af">{%p7_Total%}</strong> /
-                                {%Total%}</span></span>
-
-                        <div class="progress mb-4 p-0 py-2" style="position:relative;">
-                            <div class="progress-bar  p-0 w{%p7_cn%}" style="
-                                        color:black;
-                                        background-color:#ffe8af;
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;">
-                                {%p7%}%
-                            </div>
-                        </div>
-
-                    </span>
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Local_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%Local%}%
+                    </div>
+                  </div>
                 </span>
-            </div>
-        </div>
-    </div>
-    </div>
+                <span class="p-lg-0 pb-0" id="card-body">
+                  <span class="h5 type-row"
+                    >Unknown
+                    <span class="badge badge-primary h6 ml-1 type-badge">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%Unknown_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
 
-    <div class="container-fluid pt-0" id="container">
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Unknown_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%Unknown%}%
+                    </div>
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-md-6 p-0">
+            <div class="card  card-light p-0" id="card">
+              <h3 class="text-center card-header" id="byAge">By Age 👨‍👨‍👧‍👦</h3>
+              <span class="card-bodyquote pt-3 pb-0" id="card-body">
+                <span class="p-lg-0 pb-0">
+                  <span class="h5"
+                    >👶 Child (0-17)
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%Child_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2 "
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Child_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%Child%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >👱 Adult (18-29)<span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%Adult_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Adult_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%Adult%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >👲 Middle Age I (30-39)<span
+                      class="badge badge-primary h6 ml-1"
+                    >
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%Madult_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Madult_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%Madult%}%
+                    </div>
+                  </div>
+                </span>
+                <span class="p-lg-0">
+                  <span class="h5"
+                    >👳 Middle Age II (40-49)<span
+                      class="badge badge-primary h6 ml-1"
+                    >
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%MMadult_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2 "
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%MMadult_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%MMadult%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >🎅 Middle Age III (50-59)
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%MMMadult_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%MMMadult_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%MMMadult%}%
+                    </div>
+                  </div>
+                </span>
+
+                <span class="p-lg-0 pb-0">
+                  <span class="h5"
+                    >👴 Old Age I (60-69)
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%Old_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2 "
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%Old_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%Old%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >👵 Old Age II (70+)
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%OOld_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0  w{%OOld_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%OOld%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >Unknown
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%Unknown_Age_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2 "
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0  w{%Unknown_Age_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%Unknown_Age%}%
+                    </div>
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-6 p-0">
+            <div class="card  card-light p-0" id="card">
+              <h3 class="text-center card-header" id="byProvince">
+                By Province 🚩
+              </h3>
+              <span
+                class="card-bodyquote"
+                id="card-body"
+                style="padding:2.75rem;"
+              >
+                <span class="p-lg-0 pb-0">
+                  <span class="h5"
+                    >Province 1<span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%p1_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2 "
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%p1_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%p1%}%
+                    </div>
+                  </div>
+
+                  <span class="h5">
+                    Province 2
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%p2_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%p2_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%p2%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >Province 3<span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%p3_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%p3_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%p3%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >Province 4
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%p4_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%p4_cn%}"
+                      style="
+                                color:black;
+                                background-color:#ffe8af;
+                                position: absolute;
+                                top: 0;
+                                left: 0;"
+                    >
+                      {%p4%}%
+                    </div>
+                  </div>
+                </span>
+
+                <span class="p-lg-0 pb-0">
+                  <span class="h5">
+                    Province 5
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%p5_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%p5_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%p5%}%
+                    </div>
+                  </div>
+
+                  <span class="h5"
+                    >Province 6
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%p6_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%p6_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%p6%}%
+                    </div>
+                  </div>
+
+                  <span class="h5">
+                    Province 7
+                    <span class="badge badge-primary h6 ml-1">
+                      <strong class="p-0" style="color:#ffe8af"
+                        >{%p7_Total%}</strong
+                      >
+                      / {%Total%}</span
+                    ></span
+                  >
+
+                  <div
+                    class="progress mb-4 p-0 py-2"
+                    style="position:relative;"
+                  >
+                    <div
+                      class="progress-bar  p-0 w{%p7_cn%}"
+                      style="
+                                        color:black;
+                                        background-color:#ffe8af;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;"
+                    >
+                      {%p7%}%
+                    </div>
+                  </div>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid pt-0" id="container">
         <div class="row pt-0">
-            <div class="col-md-8 p-0">
-                <table class="table table-responsive-sm table-light" id="table">
-                    <thead>
-                        <tr background="white">
-                            <h3 style="background-color: #f7f7f7; border-radius:5px 5px 0 0;"
-                                class="text-center text-danger m-0">By
-                                Timeline ⏲</h3>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                            <th style="color: var(--secondary-color)">Date
-                                🕒
-                            </th>
-                            <th style="color:var(--primary-color)">Tested
-                                Confirmed
-                                🤒</th>
-                            <th style="color: var(--secondary-color)">Total
-                                Recovered
-                                😊</th>
-                            <th style="color: var(--primary-color)">Total Deaths
-                                😭</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {%Columns%}
-                    </tbody>
-                </table>
+          <div class="col-md-8 p-0">
+            <table class="table table-responsive-sm table-light" id="table">
+              <thead>
+                <tr background="white">
+                  <h3
+                    style="background-color: #f7f7f7; border-radius:5px 5px 0 0;"
+                    class="text-center text-danger m-0"
+                  >
+                    By Timeline ⏲
+                  </h3>
+                </tr>
+              </thead>
+              <thead>
+                <tr>
+                  <th style="color: var(--secondary-color)">Date 🕒</th>
+                  <th style="color:var(--primary-color)">
+                    Tested Confirmed 🤒
+                  </th>
+                  <th style="color: var(--secondary-color)">
+                    Total Recovered 😊
+                  </th>
+                  <th style="color: var(--primary-color)">Total Deaths 😭</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%Columns%}
+              </tbody>
+            </table>
 
-
-                <div class="faqs_lists">
-                    <h3 class="text-center card-header" id="byType"
-                        style="background-color: #f7f7f7; color: var(--primary-color)">Latest FAQS 📰</h3>
-                    {%faqs_Cards%}
-                </div>
+            <div class="faqs_lists">
+              <h3
+                class="text-center card-header"
+                id="byType"
+                style="background-color: #f7f7f7; color: var(--primary-color)"
+              >
+                Latest FAQS 📰
+              </h3>
+              {%faqs_Cards%}
             </div>
+          </div>
 
-            <!-- News------------------ -->
+          <!-- News------------------ -->
 
-            <div class="col-md-4 pt-md-0" id="col-news">
-                <h3 class="text-center card-header" id="byType"
-                    style="padding:20px; background-color: #f7f7f7; color: var(--primary-color)">Latest
-                    News 📰</h3>
-                {%Cards%}
+          <div class="col-md-4 pt-md-0" id="col-news">
+            <h3
+              class="text-center card-header"
+              id="byType"
+              style="padding:20px; background-color: #f7f7f7; color: var(--primary-color)"
+            >
+              Latest News 📰
+            </h3>
+            {%Cards%}
 
-                <footer class="text-center  h6 font-weight-normal">
-                    &copy;Copyright
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
+            <footer class="text-center  h6 font-weight-normal">
+              &copy;Copyright
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
 
-                    | Design and Developed :<a class="p-1"
-                        style="color: var(--primary-color);display: inline-block; text-decoration: none; font-size: .95rem;"
-                        href="http://sirishtitaju.com.np" target="_blank">Sirish
-                        Titaju </a>| Source : Ministry of Health and Population (MoHP)
-                    <span class="m-2 p-0">
-                        <!-- hitwebcounter Code START -->
-                        <a href="https://www.hitwebcounter.com" target="_blank">
-                            <img src="https://hitwebcounter.com/counter/counter.php?page=7431872&style=0007&nbdigits=5&type=ip&initCount=0"
-                                title="Web Counter" Alt="Web counter" border="0">
-                        </a>
-
-                    </span>
-                </footer>
-            </div>
+              | Design and Developed :<a
+                class="p-1"
+                style="color: var(--primary-color);display: inline-block; text-decoration: none; font-size: .95rem;"
+                href="http://sirishtitaju.com.np"
+                target="_blank"
+                >Sirish Titaju </a
+              >| Source : Ministry of Health and Population (MoHP)
+              <span class="m-2 p-0">
+                <!-- hitwebcounter Code START -->
+                <a href="https://www.hitwebcounter.com" target="_blank">
+                  <img
+                    src="https://hitwebcounter.com/counter/counter.php?page=7431872&style=0007&nbdigits=5&type=ip&initCount=0"
+                    title="Web Counter"
+                    alt="Web counter"
+                    border="0"
+                  />
+                </a>
+              </span>
+            </footer>
+          </div>
         </div>
-        <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous">
-        </script>
-</body>
+      </div>
+    </div>
 
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+      integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
